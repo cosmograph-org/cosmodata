@@ -1,11 +1,32 @@
 """Utils"""
 
+import os
+import i2
+import dol
 from importlib_resources import files
 from functools import partial
 
 
-repo_stub = "cosmograph-org/cosmodata"
-proj_files = files("cosmodata")
+def get_package_name():
+    """Return current package name"""
+    # return __name__.split('.')[0]
+    # TODO: See if this works in all cases where module is in highest level of package
+    #  but meanwhile, hardcode it:
+    return "cosmodata"
+
+
+# get app data dir path and ensure it exists
+pkg_name = get_package_name()
+# _root_app_data_dir = i2.get_app_data_folder()
+# app_data_dir = os.environ.get(
+#     f"{pkg_name.upper()}_APP_DATA_DIR",
+#     os.path.join(_root_app_data_dir, pkg_name),
+# )
+# dol.ensure_dir(app_data_dir, verbose=f"Making app dir: {app_data_dir}")
+
+
+repo_stub = f"cosmograph-org/{pkg_name}"
+proj_files = files(pkg_name)
 links_files = proj_files / "links"
 link_files_rootdir = str(links_files)
 branch = "master"
@@ -147,6 +168,7 @@ import graze
 from dol import Pipe, wrap_kvs, Store
 from operator import methodcaller
 
+# TODO: Could use cosmodata specific graze persistence folder here, or give user choice
 _graze = partial(graze.graze, preget=graze.preget_print_downloading_message)
 store_egress = add_ipython_key_completions
 
