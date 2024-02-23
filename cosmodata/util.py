@@ -132,8 +132,10 @@ def get_data(url, prepper=prepper):
 @wrap_kvs(postget=keyed_trans)
 class LinkFileTables(Files):
     """Store of link files (which contain data names, urls, and other info)"""
+
     def __init__(self, rootdir=link_files_rootdir, **kwargs):
         super().__init__(rootdir, **kwargs)
+
 
 from typing import Callable, Mapping, NewType
 
@@ -162,6 +164,7 @@ class LinkFileMapping(LinkFileTables):
 
 import io
 from collections import defaultdict
+
 # from functools import partial
 
 import graze
@@ -169,7 +172,7 @@ from dol import Pipe, wrap_kvs, Store
 from operator import methodcaller
 
 # TODO: Could use cosmodata specific graze persistence folder here, or give user choice
-_graze = partial(graze.graze, preget=graze.preget_print_downloading_message)
+_graze = partial(graze.graze, key_ingress=graze.key_ingress_print_downloading_message)
 store_egress = add_ipython_key_completions
 
 
