@@ -1,0 +1,258 @@
+[
+    {
+        "url": "https://alex.macrocosm.so/download",
+        "urls": {
+            "titles": "https://drive.google.com/file/d/1Ul5mPePtoPKHZkH5Rm6dWKAO11dG98GN/view?usp=share_link",
+            "abstracts": "https://drive.google.com/file/d/1g3K-wlixFxklTSUQNZKpEgN4WNTFTPIZ/view?usp=share_link"
+        },
+        "url_type": "http",
+        "name": "Arxiv Data Preparation",
+        "description": "This code is for downloading and processing titles and abstracts from arxiv for further usage in the xv project. It includes functions for reading the data into usable formats and transforming it as needed for analysis.",
+        "parameters": {
+            "grazed_path": "Path to the grazed directory for data storage.",
+            "TITLES_DATA_LOCAL_FILEPATH": "Local path for storing titles data.",
+            "ABSTRACTS_DATA_LOCAL_FILEPATH": "Local path for storing abstracts data."
+        },
+        "data_keys": {
+            "titles": "Data related to titles stored in .parquet format.",
+            "abstracts": "Data related to abstracts stored in .parquet format."
+        },
+        "functions": {
+            "arxiv_url": "Generates a URL for a given DOI and resource type.",
+            "_kind_router": "Routes data based on their keys to the appropriate processing function."
+        },
+        "code": "xv.data_access"
+    },
+    {
+        "url": "https://huggingface.co/deepset/prompt-injections",
+        "urls": {},
+        "url_type": "http",
+        "name": "Prompt Injections Data",
+        "description": "This code prepares data related to prompt injections for analysis. It involves downloading data from Hugging Face and processing it to compute and save embeddings for further use in machine learning tasks.",
+        "parameters": {
+            "huggingface_data_stub": "The identifier for the dataset on Hugging Face.",
+            "label_key": "Key used for labels in the dataset.",
+            "data_attr": "Attribute name for accessing data (e.g. 'train_data', 'test_data').",
+            "text_col": "The column name in the dataset that contains text data for analysis.",
+            "planar_embeddings_save_key": "Name of the file where planar embeddings will be saved.",
+            "embeddings_key": "Column name for storing embeddings."
+        },
+        "data_keys": {
+            "label_counts": "Counts of each label in the dataset.",
+            "embeddings_df": "DataFrame containing concatenated embedding chunks.",
+            "planar_embeddings": "Stored planar embeddings."
+        },
+        "functions": {
+            "__post_init__": "Initializes the class and calls the parent class's initialization.",
+            "data": "Property that retrieves the dataset.",
+            "label_counts": "Property that computes and stores counts of labels in the dataset.",
+            "compute_and_save_embeddings": "Method to compute and save embeddings from the dataset.",
+            "embeddings_df": "Property that concatenates embedding data into a single DataFrame.",
+            "compute_and_save_planar_embeddings": "Method to compute and save planar embeddings."
+        },
+        "code": "prompt_injections.py"
+    },
+    {
+        "url": "https://github.com/thorwhalen/content/raw/refs/heads/master/tables/csv/zip/english-word-frequency.csv.zip",
+        "urls": {},
+        "url_type": "http",
+        "name": "WordNet Words Data",
+        "description": "This code prepares a dataset of words from WordNet along with their frequencies and embeddings. It downloads word frequency data, processes it alongside WordNet data to create various metadata and features associated with the words, such as their synsets and relationships in the context of their usage. The processed data is structured for analysis and includes cached data in various formats.",
+        "parameters": {
+            "rootdir": "The root directory where the processed data will be stored, fetched from the environment variable WORDNET_WORDS.",
+            "word_list": "A pre-defined list of words to process; if not provided, defaults to common words in WordNet."
+        },
+        "data_keys": {
+            "word_frequency_data_url": "URL for the word frequency dataset.",
+            "word_and_synset": "DataFrame containing words and their associated synsets, saved as a parquet file.",
+            "wordnet_metadata": "Metadata about the synsets and their features, saved as a parquet file.",
+            "wordnet_feature_meta": "Meta information including word frequencies and additional features, saved as a parquet file.",
+            "words_embeddings": "Embeddings for the words based on their meanings, saved as a parquet file.",
+            "umap_embeddings": "UMAP planar embeddings for visualization of word relationships, saved as a parquet file."
+        },
+        "functions": {
+            "__init__": "Initializer for the WordsDacc class, setting up root directory and word list.",
+            "_words_common_to_word_counts_and_wordnet": "Computes the common words between WordNet and the dictionary of word counts.",
+            "word_counts": "Fetches and caches word frequency counts from the CSV URL.",
+            "wordnet_words": "Caches all lemma names from WordNet.",
+            "word_and_synset": "Generates a DataFrame of words and their synset names.",
+            "wordnet_metadata": "Merges word and synset information with metadata for further analysis.",
+            "word_frequencies": "Calculates normalized frequencies of words.",
+            "wordnet_feature_meta": "Combines various meta features of words into a single DataFrame.",
+            "umap_embeddings": "Computes UMAP embeddings for visualizing the high dimensional word embeddings.",
+            "lemmas_of_synset": "Creates a mapping of synsets to their associated lemmas.",
+            "word_of_lemma": "Creates a mapping of lemmas to their associated words."
+        },
+        "code": "wordnet_words.py"
+    },
+    {
+        "url": "HCP_PUBS_SRC_KEY",
+        "urls": {},
+        "url_type": "env_var",
+        "name": "HCP Publications Analysis",
+        "description": "NOT DATA PREP CODE: This code primarily defines a class to handle various operations on HCP (Human Connectome Project) publications data and their citations. It retrieves and processes embeddings and citation data, but it does not include explicit downloading or acquiring of raw data from an external source. The only potential environment variable referenced is for a local configuration, suggesting that raw data may need to be present locally.",
+        "parameters": {
+            "min_proportion": "Minimum proportion of citations that must have embeddings for a node to be included in the graph.",
+            "min_citations": "Minimum number of citations required for an article to be included in the citation graph.",
+            "titles_sep": "Separator used for titles in aggregated titles.",
+            "main_title_sep": "Separator used for the main title in aggregated titles.",
+            "print_progress_every": "Frequency to print progress during the aggregation of titles."
+        },
+        "data_keys": {
+            "src_key": "Path to source key based on local config or environment variable.",
+            "embeddings_src_key": "Filepath for embedding data.",
+            "citations_src_key": "Filepath for citations data.",
+            "info_src_key": "Filepath for additional publication info.",
+            "aggregate_titles_embeddings_key": "Filepath for aggregated titles embeddings."
+        },
+        "functions": {
+            "get_src_key_from_local_configs": "Fetches the source key from environment variables.",
+            "embeddings_for_ids": "Retrieves embeddings for specified article IDs from a DataFrame.",
+            "aggregate_values": "Aggregates values in a dictionary based on specified aggregation functions.",
+            "citation_graph": "Constructs a citation graph filtered by minimum citation requirements.",
+            "titles_aggregate": "Aggregates titles of cited papers for each published article.",
+            "titles_aggregate_sr": "Streamlined version of titles_aggregate yielding results as a pandas Series."
+        },
+        "code": "hcp.py"
+    },
+    {
+        "url": "https://www.jerseylaw.je/laws/current/Pages/search.aspx?size=n_500_n",
+        "urls": {},
+        "url_type": "http",
+        "name": "Jersey Law Data",
+        "description": "This code downloads and processes HTML data from the Jersey Law website to extract details about various laws and their related PDF documents. The data is gathered from multiple HTML files, generated manually, which represent the laws listed on the Jersey Law website.",
+        "parameters": {
+            "htmls": "A folder path or a mapping of HTML file names to their contents that contains the law information."
+        },
+        "data_keys": {
+            "pdf": "A URL link to the PDF of the law."
+        },
+        "functions": {
+            "extract_ref": "Extracts reference number from the URL.",
+            "extract_info": "Parses HTML to extract law names, URLs, and reference numbers, generating a dictionary of law information.",
+            "gather_info": "Iterates through HTML files to gather law information, linking PDF URLs.",
+            "get_laws_info": "Aggregates the result from extracted information ensuring all laws have PDF links and names are unique."
+        },
+        "code": "jersey_laws.py"
+    },
+    {
+        "url": "https://www.dropbox.com/s/kokiypcm2ylx4an/github-repos.parquet?dl=1",
+        "urls": {},
+        "url_type": "http",
+        "name": "github_repos",
+        "description": "This dataset contains metadata for GitHub repositories, including various attributes like the repository name, owner, text segments, and embeddings. The data is sourced from a parquet file available on Dropbox.",
+        "parameters": {
+            "raw_data_src": "Source URL for the raw data",
+            "cache": "Directory for caching data",
+            "raw_data_local_path": "Local file path for storing the raw data",
+            "planar_compute_chk_size": "Size check for planar computations",
+            "embeddings_column": "Column name for embeddings",
+            "text_segments_column": "Column name for text segments",
+            "planar_embeddings_func": "Function used for computing planar embeddings",
+            "drop_duplicates": "Flag to indicate whether to drop duplicates based on nameWithOwner",
+            "n_clusters": "Sequence of cluster sizes for k-means clustering",
+            "mk_cluster_learner": "Function for generating cluster indices",
+            "verbose": "Logging verbosity level"
+        },
+        "data_keys": {
+            "raw_data_local_path": "Path to the downloaded raw data file",
+            "planar_embeddings": "DataFrame of computed planar embeddings",
+            "cluster_indices": "DataFrame containing cluster indices for original embeddings"
+        },
+        "functions": {
+            "raw_data": "Returns a DataFrame containing the processed raw data",
+            "text_segments": "Property to access text segments from raw data",
+            "embeddings": "Property to access embeddings from raw data",
+            "embeddings_matrix": "Property to get the embeddings as a numpy array",
+            "planar_embeddings": "Calculates and caches planar embeddings",
+            "data_with_planar_embeddings": "Merges raw data with planar embeddings",
+            "cluster_indices": "Calculates and caches cluster indices"
+        },
+        "code": "github_repos.py"
+    },
+    {
+        "url": "https://www.kaggle.com/datasets/pelmers/github-repository-metadata-with-5-stars?resource=download",
+        "urls": {
+            "Dropbox Link": "https://www.dropbox.com/s/kokiypcm2ylx4an/github-repos.parquet?dl=0"
+        },
+        "url_type": "http",
+        "name": "GitHub Repository Metadata",
+        "description": "Data preparation for analyzing GitHub repository metadata, including features and attributes of repositories sourced from Kaggle and Dropbox.",
+        "parameters": {
+            "cache_dir": "Directory for caching data, defaults to WILDCHAT_CACHE_DIR environment variable or saved directory.",
+            "raw_data_local_path": "Local path for saving raw data from the data sources.",
+            "n_clusters": "List of cluster sizes for k-means clustering."
+        },
+        "data_keys": {
+            "raw_data": "Data containing metadata of GitHub repositories in parquet format."
+        },
+        "functions": {
+            "expand_wildchat_data": "Function that flattens and expands the wildchat data for easier processing.",
+            "embeddable_df": "Method within WildchatDacc class that prepares a DataFrame with embedded conversation data."
+        },
+        "code": "wildchat.py"
+    },
+    {
+        "url": "https://81593031860c2ee4ad53a08892f7e95d.r2.cloudflarestorage.com/cosmograph/projects/eurovis/raw_data.csv",
+        "urls": {},
+        "url_type": "http",
+        "name": "Eurovis Data Preparation",
+        "description": "NOT DATA PREP CODE: This code serves primarily to outline a framework for embedding analysis using Eurovis data rather than processing raw data. It defines functions and classes for embedding segments and handling data derived from Eurovis, but there is no direct manipulation or preparation of raw datasets.",
+        "parameters": {
+            "DFLT_CACHE_DIR": "Directory for saving cached data.",
+            "DFLT_N_CLUSTERS": "Default clusters sizes used in analysis."
+        },
+        "data_keys": {
+            "saves_dir": "Directory where processed data will be saved."
+        },
+        "functions": {
+            "embed_segments_one_by_one": "Function that generates embeddings for text segments."
+        },
+        "code": "eurovis.py"
+    },
+    {
+        "url": "https://huggingface.co/papers/2309.11998",
+        "urls": {},
+        "url_type": "http",
+        "name": "LMSys Chat Dataset",
+        "description": "The LMSys Chat Dataset is a dataset for training and evaluating conversational models. It consists of a large collection of chat conversations sourced from various online interactions.",
+        "parameters": {
+            "data_name": "Name of the dataset.",
+            "huggingface_data_stub": "Hugging Face dataset identifier.",
+            "saves_dir": "Directory path where processed data artifacts are saved.",
+            "data_spec": "Specification for fetching data, can be a string or any object."
+        },
+        "data_keys": {
+            "saves_dir": "Directory for saving data artifacts.",
+            "saves_bytes_store": "Stores the byte data of saved files.",
+            "flat_en.parquet": "Parquet file containing English language conversations."
+        },
+        "functions": {
+            "concatenate_arrays": "Concatenates an array of arrays (faster than np.vstack).",
+            "get_data": "Fetches the specified data from either attributes or saves.",
+            "train_data": "Returns the training data in Pandas DataFrame format.",
+            "language_count": "Counts the occurrences of each language in conversations.",
+            "model_count": "Counts the occurrences of each model in conversations.",
+            "flat_en": "Filter and returns only the English conversations."
+        },
+        "code": "lmsys_ai_conversations.py"
+    },
+    {
+        "url": "https://www.kaggle.com/datasets/kazanova/sentiment140",
+        "urls": {},
+        "url_type": "http",
+        "name": "twitter_sentiment",
+        "description": "Data prep code for processing Twitter sentiment analysis using the Sentiment140 dataset. The code contains functionalities for embedding tweet segments and caching results.",
+        "parameters": {
+            "DFLT_CACHE_DIR": "Default directory for caching the raw data, determined by an environment variable or a default value.",
+            "DFLT_N_CLUSTERS": "Default number of clusters for any clustering algorithms (set to a tuple of several integers)."
+        },
+        "data_keys": {
+            "saves_dir": "Directory to save processed data and artifacts, based on the dataset name."
+        },
+        "functions": {
+            "raw_data": "Function that retrieves the raw sentiment analysis data from Kaggle and formats it into a DataFrame."
+        },
+        "code": "twitter_sentiment.py"
+    }
+]

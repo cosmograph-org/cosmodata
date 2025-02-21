@@ -1,5 +1,0 @@
-name, url, info_url
-amazon-fraud, https://github.com/YingtongDou/CARE-GNN/raw/master/data/Amazon.zip?raw=true, https://paperswithcode.com/dataset/amazon-fraud
-yelp-fraud, https://github.com/YingtongDou/CARE-GNN/blob/master/data/YelpChi.zip?raw=true, https://paperswithcode.com/dataset/yelpchi
-
-

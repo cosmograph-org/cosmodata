@@ -1,0 +1,2558 @@
+{
+  "eurovis": {
+    "project_group": "imbed_saves",
+    "data_filenames": [
+      "cluster_13_labels.parquet",
+      "cluster_21_labels.parquet",
+      "clusters_df.parquet",
+      "planar_embeddings.parquet",
+      "oa_embeddings_batch_keys.pkl",
+      "raw_data.csv"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/eurovis/cluster_13_labels.parquet": 2757,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/eurovis/cluster_21_labels.parquet": 2951,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/eurovis/clusters_df.parquet": 62187,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/eurovis/planar_embeddings.parquet": 108013,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/eurovis/oa_embeddings_batch_keys.pkl": 152155,
+      "...": "...",
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/eurovis/embeddings_df.parquet": 69047579
+    },
+    "code_file": "eurovis.py",
+    "code_contents": "\"\"\"Data prep for Eurovis data.\"...': [1, 2, 3], 'b': [4, 5, 6]})\n",
+    "num_of_data_files": 9,
+    "tables_info": {
+      "cluster_13_labels.parquet": {
+        "shape": [
+          13,
+          1
+        ],
+        "first_row": {
+          "label": "\"Visualization in Network Analysis\""
+        }
+      },
+      "cluster_21_labels.parquet": {
+        "shape": [
+          21,
+          1
+        ],
+        "first_row": {
+          "label": "\"Molecular Visualization Techniques Analysis\""
+        }
+      },
+      "clusters_df.parquet": {
+        "shape": [
+          5599,
+          5
+        ],
+        "first_row": {
+          "cluster_05": 4,
+          "cluster_08": 7,
+          "cluster_13": 12,
+          "cluster_21": 16,
+          "cluster_34": 30
+        }
+      },
+      "planar_embeddings.parquet": {
+        "shape": [
+          5597,
+          2
+        ],
+        "first_row": {
+          "x": -16.307395935058594,
+          "y": -14.705571174621582
+        }
+      },
+      "oa_embeddings_batch_keys.pkl": null,
+      "raw_data.csv": {
+        "shape": [
+          5699,
+          8
+        ],
+        "first_row": {
+          "year": 2024,
+          "title": "A Prediction-Traversal Approach...tured Meshes with Bounded Error",
+          "doi": "10.1111/cgf.15097",
+          "abstract": "We explore an error-bounded los...han existing lossy compressors.",
+          "authorNamesDeduped": "Congrong Ren;Xin Liang 0001;Hanqi Guo 0001",
+          "award": NaN,
+          "resources": "P",
+          "link": "https://vispubs.com/?paper=10.1111%2Fcgf.15097"
+        }
+      },
+      "embeddable.parquet": {
+        "shape": [
+          5597,
+          11
+        ],
+        "first_row": {
+          "conference": "EuroVis",
+          "year": 2024,
+          "title": "A Prediction-Traversal Approach...tured Meshes with Bounded Error",
+          "doi": "10.1111/cgf.15097",
+          "abstract": "We explore an error-bounded los...han existing lossy compressors.",
+          "authorNamesDeduped": "Congrong Ren;Xin Liang 0001;Hanqi Guo 0001",
+          "award": null,
+          "resources": "P",
+          "link": "https://vispubs.com/?paper=10.1111%2Fcgf.15097",
+          "segment": "##A Prediction-Traversal Approa...han existing lossy compressors.",
+          "n_tokens": 318
+        }
+      },
+      "merged_artifacts.parquet": {
+        "shape": [
+          5599,
+          18
+        ],
+        "first_row": {
+          "conference": "EuroVis",
+          "year": 2024,
+          "title": "A Prediction-Traversal Approach...tured Meshes with Bounded Error",
+          "doi": "10.1111/cgf.15097",
+          "abstract": "We explore an error-bounded los...han existing lossy compressors.",
+          "authorNamesDeduped": "Congrong Ren;Xin Liang 0001;Hanqi Guo 0001",
+          "award": null,
+          "resources": "P",
+          "link": "https://vispubs.com/?paper=10.1111%2Fcgf.15097",
+          "segment": "##A Prediction-Traversal Approa...han existing lossy compressors.",
+          "n_tokens": 318,
+          "x": -16.307395935058594,
+          "y": -14.705571174621582,
+          "cluster_05": 4,
+          "cluster_08": 7,
+          "cluster_13": 12,
+          "cluster_21": 16,
+          "cluster_34": 30
+        }
+      },
+      "embeddings_df.parquet": {
+        "shape": [
+          5599,
+          1
+        ],
+        "first_row": {
+          "embedding": [
+            0.045571942,
+            0.039998397,
+            0.02147455,
+            0.03886351,
+            0.011367766,
+            0.013442084
+          ]
+        }
+      }
+    }
+  },
+  "github_repos": {
+    "project_group": "imbed_saves",
+    "data_filenames": [
+      "cluster_indices..parquet",
+      "planar_embeddings..parquet",
+      "github_repo_for_cosmos.parquet",
+      "github-repos.parquet"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/github_repos/cluster_indices..parquet": 83298198,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/github_repos/planar_embeddings..parquet": 103473720,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/github_repos/github_repo_for_cosmos.parquet": 3747110796,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/github_repos/github-repos.parquet": 3880498828
+    },
+    "code_file": "github_repos.py",
+    "code_contents": "\"\"\"Data prep for Github Reposit...ex,\n        )\n        return r\n",
+    "num_of_data_files": 4,
+    "tables_info": {
+      "cluster_indices..parquet": {
+        "shape": [
+          3065063,
+          5
+        ],
+        "first_row": {
+          "clusters_05": 4,
+          "clusters_08": 6,
+          "clusters_13": 9,
+          "clusters_21": 17,
+          "clusters_34": 21
+        }
+      },
+      "planar_embeddings..parquet": {
+        "shape": [
+          3065063,
+          2
+        ],
+        "first_row": {
+          "x": 3.7858853340148926,
+          "y": 7.999374866485596
+        }
+      },
+      "github_repo_for_cosmos.parquet": {
+        "shape": [
+          3065063,
+          28
+        ],
+        "first_row": {
+          "owner": "xdedzl",
+          "name": "RuntimeTerrainEditor",
+          "stars": 82,
+          "forks": 29,
+          "watchers": 6,
+          "isFork": false,
+          "isArchived": false,
+          "languages": "C#: 162842, ShaderLab: 1965",
+          "languageCount": 2,
+          "topics": "",
+          "topicCount": 0,
+          "diskUsageKb": 140632,
+          "pullRequests": 0,
+          "issues": 0,
+          "description": "\u8fd0\u884c\u65f6\u5730\u5f62\u7f16\u8f91\u5668",
+          "primaryLanguage": "C#",
+          "createdAt": "2019-03-18T15:54:07Z",
+          "pushedAt": "2020-07-29T15:35:12Z",
+          "defaultBranchCommitCount": 40.0,
+          "license": null,
+          "assignableUserCount": 1,
+          "codeOfConduct": null,
+          "forkingAllowed": true,
+          "nameWithOwner": "xdedzl/RuntimeTerrainEditor",
+          "parent": NaN,
+          "embedding": [
+            -0.054284337908029556,
+            0.13081394135951996,
+            0.14242872595787048,
+            -0.07023005932569504,
+            -0.04308788850903511,
+            0.007899035699665546
+          ],
+          "x": 3.7858853340148926,
+          "y": 7.999374866485596
+        }
+      },
+      "github-repos.parquet": {
+        "shape": [
+          3274587,
+          26
+        ],
+        "first_row": {
+          "owner": "xdedzl",
+          "name": "RuntimeTerrainEditor",
+          "stars": 82,
+          "forks": 29,
+          "watchers": 6,
+          "isFork": false,
+          "isArchived": false,
+          "languages": "C#: 162842, ShaderLab: 1965",
+          "languageCount": 2,
+          "topics": "",
+          "topicCount": 0,
+          "diskUsageKb": 140632,
+          "pullRequests": 0,
+          "issues": 0,
+          "description": "\u8fd0\u884c\u65f6\u5730\u5f62\u7f16\u8f91\u5668",
+          "primaryLanguage": "C#",
+          "createdAt": "2019-03-18T15:54:07Z",
+          "pushedAt": "2020-07-29T15:35:12Z",
+          "defaultBranchCommitCount": 40.0,
+          "license": null,
+          "assignableUserCount": 1,
+          "codeOfConduct": null,
+          "forkingAllowed": true,
+          "nameWithOwner": "xdedzl/RuntimeTerrainEditor",
+          "parent": NaN,
+          "embedding": [
+            -0.054284337908029556,
+            0.13081394135951996,
+            0.14242872595787048,
+            -0.07023005932569504,
+            -0.04308788850903511,
+            0.007899035699665546
+          ]
+        }
+      }
+    }
+  },
+  "harris_vs_trump": {
+    "project_group": "figiri",
+    "data_filenames": [
+      "harris_vs_trump_debate__conversation_links.parquet",
+      "harris_trump.csv",
+      "harris_vs_trump_animated.mov",
+      "openai_embeddings.parquet",
+      "harris_vs_trump_debate.parquet",
+      "harris_vs_trump_debate_with_extras.parquet"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/figiri/harris_vs_trump/harris_vs_trump_debate__conversation_links.parquet": 14516,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/harris_vs_trump/https/raw.githubusercontent.com_f/jumonlala_f/harris_trump_debate_f/refs_f/heads_f/main_f/data_f/harris_trump.csv": 220860,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/harris_vs_trump/harris_vs_trump_animated.mov": 3102090,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/harris_vs_trump/openai_embeddings.parquet": 10509965,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/harris_vs_trump/harris_vs_trump_debate.parquet": 10707561,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/harris_vs_trump/harris_vs_trump_debate_with_extras.parquet": 10707561
+    },
+    "num_of_data_files": 6,
+    "tables_info": {
+      "harris_vs_trump_debate__conversation_links.parquet": {
+        "shape": [
+          1140,
+          2
+        ],
+        "first_row": {
+          "source": 0,
+          "target": 1
+        }
+      },
+      "harris_trump.csv": {
+        "shape": [
+          1141,
+          8
+        ],
+        "first_row": {
+          "id": 14,
+          "speaker": "KAMALA HARRIS",
+          "text": "So, I was raised as a middle-class kid",
+          "topic": "economy",
+          "token": "['so', 'be', 'raise', 'a', 'middle-class', 'kid']",
+          "polarity": 0.0,
+          "subjectivity": 0.0,
+          "certainty": 1.0
+        }
+      },
+      "harris_vs_trump_animated.mov": null,
+      "openai_embeddings.parquet": {
+        "shape": [
+          1132,
+          2
+        ],
+        "first_row": {
+          "text": "$6,000 for young families for the first year of your child's life",
+          "embeddings": [
+            0.018508581444621086,
+            0.006474844645708799,
+            0.035122085362672806,
+            0.06266386061906815,
+            -0.060288701206445694,
+            -0.048059139400720596
+          ]
+        }
+      },
+      "harris_vs_trump_debate.parquet": {
+        "shape": [
+          1141,
+          21
+        ],
+        "first_row": {
+          "id": 14,
+          "speaker": "KAMALA HARRIS",
+          "text": "So, I was raised as a middle-class kid",
+          "topic": "economy",
+          "token": "['so', 'be', 'raise', 'a', 'middle-class', 'kid']",
+          "polarity": 0.0,
+          "subjectivity": 0.0,
+          "certainty": 1.0,
+          "embeddings": [
+            0.015647249296307564,
+            -0.006923337001353502,
+            -0.03880111873149872,
+            0.024079518392682076,
+            0.025816692039370537,
+            -0.015165405347943306
+          ],
+          "pca__x": -0.1435144159237138,
+          "pca__y": 0.13513465512232511,
+          "random_projection__x": -1.1300842039349361,
+          "random_projection__y": 1.3293904559190455,
+          "tsne__x": -36.5738410949707,
+          "tsne__y": 16.835092544555664,
+          "kernel_pca__x": -0.0051774912810988935,
+          "kernel_pca__y": -0.004871033223549393,
+          "_index": 0,
+          "speaker_id": 0,
+          "speaker_color": "blue",
+          "topic_id": 0
+        }
+      },
+      "harris_vs_trump_debate_with_extras.parquet": {
+        "shape": [
+          1141,
+          21
+        ],
+        "first_row": {
+          "id": 14,
+          "speaker": "KAMALA HARRIS",
+          "text": "So, I was raised as a middle-class kid",
+          "topic": "economy",
+          "token": "['so', 'be', 'raise', 'a', 'middle-class', 'kid']",
+          "polarity": 0.0,
+          "subjectivity": 0.0,
+          "certainty": 1.0,
+          "embeddings": [
+            0.015647249296307564,
+            -0.006923337001353502,
+            -0.03880111873149872,
+            0.024079518392682076,
+            0.025816692039370537,
+            -0.015165405347943306
+          ],
+          "pca__x": -0.1435144159237138,
+          "pca__y": 0.13513465512232511,
+          "random_projection__x": -1.1300842039349361,
+          "random_projection__y": 1.3293904559190455,
+          "tsne__x": -36.5738410949707,
+          "tsne__y": 16.835092544555664,
+          "kernel_pca__x": -0.0051774912810988935,
+          "kernel_pca__y": -0.004871033223549393,
+          "_index": 0,
+          "speaker_id": 0,
+          "speaker_color": "blue",
+          "topic_id": 0
+        }
+      }
+    }
+  },
+  "hcp": {
+    "project_group": "figiri",
+    "data_filenames": [
+      "hcp_closest_tenth_knn_graph.parquet",
+      "aggregate_titles_embeddings_umap_2d.parquet",
+      "publications-hcp2.tsv.zip",
+      "planar_cited_mean_embeddings.tsv.zip",
+      "planar_cited_normalized_mean_embeddings.tsv.zip",
+      "aggregate_titles_embeddings_umap_2d_with_info.tsv.zip"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/figiri/hcp/hcp_closest_tenth_knn_graph.parquet": 4766154,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/hcp/aggregate_titles_embeddings_umap_2d.parquet": 5937956,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/hcp/publications-hcp2.tsv.zip": 19827594,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/hcp/planar_cited_mean_embeddings.tsv.zip": 23499637,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/hcp/planar_cited_normalized_mean_embeddings.tsv.zip": 23501402,
+      "...": "...",
+      "/Users/thorwhalen/Dropbox/_odata/figiri/hcp/publications-hcp2-embeddings.parquet": 3172041035
+    },
+    "code_file": "hcp.py",
+    "code_contents": "\"\"\"HCP publications data\"\"\"\n\nim...e_sr, name='titles_aggregate')\n",
+    "num_of_data_files": 21,
+    "tables_info": {
+      "hcp_closest_tenth_knn_graph.parquet": {
+        "shape": [
+          239062,
+          3
+        ],
+        "first_row": {
+          "from_id": 30870368.0,
+          "to_id": 718838.0,
+          "distance": 1.1102230246251565e-15
+        }
+      },
+      "aggregate_titles_embeddings_umap_2d.parquet": {
+        "shape": [
+          340855,
+          3
+        ],
+        "first_row": {
+          "id": 245658.0,
+          "x": 10.981117248535156,
+          "y": 7.027860164642334
+        }
+      },
+      "publications-hcp2.tsv.zip": {
+        "shape": [
+          354165,
+          6
+        ],
+        "first_row": {
+          "title": "Standardized low-resolution bra...y (sLORETA): technical details.",
+          "source": "PubMed",
+          "pub_date": "2002-01-01",
+          "n_cits": 1056,
+          "micro_cluster": 241,
+          "main_field": "Biomedical and health sciences"
+        }
+      },
+      "planar_cited_mean_embeddings.tsv.zip": {
+        "shape": [
+          332256,
+          8
+        ],
+        "first_row": {
+          "x": 3.1299956,
+          "y": 8.546703,
+          "title": "Standardized low-resolution bra...y (sLORETA): technical details.",
+          "source": "PubMed",
+          "pub_date": "2002-01-01",
+          "n_cits": 1056,
+          "micro_cluster": 241,
+          "main_field": "Biomedical and health sciences"
+        }
+      },
+      "planar_cited_normalized_mean_embeddings.tsv.zip": {
+        "shape": [
+          332256,
+          8
+        ],
+        "first_row": {
+          "x": 1.5038748,
+          "y": 8.726212,
+          "title": "Standardized low-resolution bra...y (sLORETA): technical details.",
+          "source": "PubMed",
+          "pub_date": "2002-01-01",
+          "n_cits": 1056,
+          "micro_cluster": 241,
+          "main_field": "Biomedical and health sciences"
+        }
+      },
+      "aggregate_titles_embeddings_umap_2d_with_info.tsv.zip": null,
+      "publications-hcp2-umap.tsv.zip": null,
+      "aggregate_titles_embeddings_umap_2d_with_info.parquet": {
+        "shape": [
+          340855,
+          9
+        ],
+        "first_row": {
+          "id": 245658,
+          "x": 10.981117248535156,
+          "y": 7.027860164642334,
+          "title": "Standardized low-resolution bra...y (sLORETA): technical details.",
+          "source": "PubMed",
+          "pub_date": "2002-01-01",
+          "n_cits": 1056,
+          "micro_cluster": 241,
+          "main_field": "Biomedical and health sciences"
+        }
+      },
+      "citation-links-hcp3.tsv.zip": {
+        "shape": [
+          4891305,
+          2
+        ],
+        "first_row": {
+          "cited_pub_id": 2013150886,
+          "date": "2002-01-01"
+        }
+      },
+      "hcp_closest_third_knn_graph.parquet": {
+        "shape": [
+          1707580,
+          3
+        ],
+        "first_row": {
+          "from_id": 30870368.0,
+          "to_id": 718838.0,
+          "distance": 1.1102230246251565e-15
+        }
+      },
+      "planar_cited_mean_embeddings.tsv": {
+        "shape": [
+          332256,
+          8
+        ],
+        "first_row": {
+          "x": 3.1299956,
+          "y": 8.546703,
+          "title": "Standardized low-resolution bra...y (sLORETA): technical details.",
+          "source": "PubMed",
+          "pub_date": "2002-01-01",
+          "n_cits": 1056,
+          "micro_cluster": 241,
+          "main_field": "Biomedical and health sciences"
+        }
+      },
+      "planar_cited_normalized_mean_embeddings.tsv": {
+        "shape": [
+          332256,
+          8
+        ],
+        "first_row": {
+          "x": 1.5038748,
+          "y": 8.726212,
+          "title": "Standardized low-resolution bra...y (sLORETA): technical details.",
+          "source": "PubMed",
+          "pub_date": "2002-01-01",
+          "n_cits": 1056,
+          "micro_cluster": 241,
+          "main_field": "Biomedical and health sciences"
+        }
+      },
+      "aggregate_titles_embeddings_umap_2d_with_info.tsv": {
+        "shape": [
+          340855,
+          8
+        ],
+        "first_row": {
+          "x": 10.981117,
+          "y": 7.02786,
+          "title": "Standardized low-resolution bra...y (sLORETA): technical details.",
+          "source": "PubMed",
+          "pub_date": "2002-01-01",
+          "n_cits": 1056,
+          "micro_cluster": 241,
+          "main_field": "Biomedical and health sciences"
+        }
+      },
+      "publications-hcp2-umap.tsv": {
+        "shape": [
+          352508,
+          8
+        ],
+        "first_row": {
+          "title": "Standardized low-resolution bra...y (sLORETA): technical details.",
+          "source": "PubMed",
+          "pub_date": "2002-01-01",
+          "n_cits": 1056,
+          "micro_cluster": 241,
+          "main_field": "Biomedical and health sciences",
+          "x": 14.115112,
+          "y": 7.674038
+        }
+      },
+      "citation-links-hcp3.tsv": {
+        "shape": [
+          4891305,
+          2
+        ],
+        "first_row": {
+          "cited_pub_id": 2013150886,
+          "date": "2002-01-01"
+        }
+      },
+      "hcp_nearest_neighbors_graph.parquet": {
+        "shape": [
+          22987824,
+          3
+        ],
+        "first_row": {
+          "from_id": 718838.0,
+          "to_id": 2111096018.0,
+          "distance": 0.3661986327006215
+        }
+      },
+      "publications-hcp3__.tsv.zip": null,
+      "publications-hcp3-with_titles_aggregates.parquet": {
+        "shape": [
+          354165,
+          9
+        ],
+        "first_row": {
+          "id": 245658,
+          "title": "Standardized low-resolution bra...y (sLORETA): technical details.",
+          "abstract": "Scalp electric potentials (elec...ce and validate the new method.",
+          "source": "PubMed",
+          "pub_date": "2002-01-01",
+          "n_cits": 1056,
+          "micro_cluster": 241,
+          "main_field": "Biomedical and health sciences",
+          "title_references": "Review of methods for solving t...otaxic Atlas of the Human Brain"
+        }
+      },
+      "publications-hcp3__.tsv": null,
+      "aggregate_titles_embeddings.parquet": {
+        "shape": [
+          340855,
+          2
+        ],
+        "first_row": {
+          "id": 245658,
+          "vector": [
+            -0.015486514195799828,
+            0.01210845448076725,
+            0.007884277030825615,
+            0.010095720179378986,
+            -0.05676679313182831,
+            0.032434504479169846
+          ]
+        }
+      },
+      "publications-hcp2-embeddings.parquet": {
+        "shape": [
+          352508,
+          2
+        ],
+        "first_row": {
+          "id": 245658,
+          "embedding": [
+            0.013564770109951496,
+            0.010467253625392914,
+            -0.027970382943749428,
+            -0.015444300137460232,
+            -0.06509111076593399,
+            0.04347651079297066
+          ]
+        }
+      }
+    }
+  },
+  "lmsys-chat-1m": {
+    "project_group": "imbed_saves",
+    "data_filenames": [
+      "Icon\r",
+      "pca_model.pkl",
+      "planar_embeddings_first_forth.npy",
+      "pca500.pkl",
+      "kmeans_7_clusters_indices.pkl",
+      "kmeans_14_clusters_indices.pkl"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/lmsys-chat-1m/Icon\r": 0,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/lmsys-chat-1m/pca_model.pkl": 1256504,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/lmsys-chat-1m/planar_embeddings_first_forth.npy": 5671104,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/lmsys-chat-1m/pca500.pkl": 6181310,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/lmsys-chat-1m/kmeans_7_clusters_indices.pkl": 11342122,
+      "...": "...",
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/lmsys-chat-1m/pca500_embeddings.npy": 11341960128
+    },
+    "code_file": "lmsys_ai_conversations.py",
+    "code_contents": "\"\"\"\nLymsys AI Conversations\n\nSe...ar_embeddings,\n        ]\n    )\n",
+    "num_of_data_files": 24,
+    "tables_info": {
+      "Icon\r": null,
+      "pca_model.pkl": null,
+      "planar_embeddings_first_forth.npy": null,
+      "pca500.pkl": null,
+      "kmeans_7_clusters_indices.pkl": null,
+      "kmeans_14_clusters_indices.pkl": null,
+      "kmeans_28_clusters_indices.pkl": null,
+      "dbscan_7_kmeans.pkl": null,
+      "planar_embeddings_pca500.npy": null,
+      "ncvis_planar_pca500_embeddings.npy": null,
+      "num_of_tokens.pkl": null,
+      "planar_embeddings_of_grouped_conversations_with_metadata.tsv.zip": null,
+      "planar_embeddings_grouped.tsv": {
+        "shape": [
+          766507,
+          3
+        ],
+        "first_row": {
+          "conversation_id": "00004b39283d4d9fabd2915cdf2f603e",
+          "x": 4.826485,
+          "y": 6.85775
+        }
+      },
+      "conversation_paths.tsv": {
+        "shape": [
+          2068983,
+          2
+        ],
+        "first_row": {
+          "source": 833126,
+          "target": 833127
+        }
+      },
+      "planar_embeddings_grouped.pkl": null,
+      "planar_embeddings_of_grouped_conversations_with_metadata.tsv": {
+        "shape": [
+          766507,
+          19
+        ],
+        "first_row": {
+          "conversation_id": "00004b39283d4d9fabd2915cdf2f603e",
+          "x": 4.826485,
+          "y": 6.85775,
+          "model": "alpaca-13b",
+          "turn": 1,
+          "flagged": 0.0,
+          "num_of_tokens": 46,
+          "violence": 0.0,
+          "sexual/minors": 0.0,
+          "sexual": 0.0,
+          "self-harm": 0.0,
+          "self-harm/intent": 0.0,
+          "hate/threatening": 0.0,
+          "self-harm/instructions": 0.0,
+          "harassment/threatening": 0.0,
+          "violence/graphic": 0.0,
+          "harassment": 0.0,
+          "hate": 0.0,
+          "id": "00004b39283d4d9fabd2915cdf2f603e"
+        }
+      },
+      "planar_embeddings_for_a_forth_of_data.tsv.zip": null,
+      "planar_embeddings_for_a_forth_of_data.parquet": {
+        "shape": [
+          708872,
+          33
+        ],
+        "first_row": {
+          "conversation_id": "33f01939a744455c869cb234afca47f1",
+          "model": "wizardlm-13b",
+          "turn": 1,
+          "language": "English",
+          "redacted": false,
+          "content": "how can identity protection ser...otect me against identity theft",
+          "role": "user",
+          "flagged": false,
+          "harassment": false,
+          "harassment/threatening": false,
+          "hate": false,
+          "hate/threatening": false,
+          "self-harm": false,
+          "self-harm/instructions": false,
+          "self-harm/intent": false,
+          "sexual": false,
+          "sexual/minors": false,
+          "violence": false,
+          "violence/graphic": false,
+          "category_scores.harassment": 9.212334e-07,
+          "category_scores.harassment/threatening": 3.6271535e-07,
+          "category_scores.hate": 8.254962e-07,
+          "category_scores.hate/threatening": 1.331843e-08,
+          "category_scores.self-harm": 1.9257865e-07,
+          "category_scores.self-harm/instructions": 6.5028324e-08,
+          "category_scores.self-harm/intent": 2.7525962e-07,
+          "category_scores.sexual": 2.564017e-06,
+          "category_scores.sexual/minors": 4.523274e-07,
+          "category_scores.violence": 2.2942773e-05,
+          "category_scores.violence/graphic": 1.9713439e-06,
+          "num_of_tokens": 11,
+          "x": -0.016079820692539215,
+          "y": 0.27986255288124084
+        }
+      },
+      "planar_embeddings_for_a_forth_of_data.tsv": {
+        "shape": [
+          708874,
+          33
+        ],
+        "first_row": {
+          "conversation_id": "33f01939a744455c869cb234afca47f1",
+          "model": "wizardlm-13b",
+          "turn": 1,
+          "language": "English",
+          "redacted": false,
+          "content": "how can identity protection ser...otect me against identity theft",
+          "role": "user",
+          "flagged": false,
+          "harassment": false,
+          "harassment/threatening": false,
+          "hate": false,
+          "hate/threatening": false,
+          "self-harm": false,
+          "self-harm/instructions": false,
+          "self-harm/intent": false,
+          "sexual": false,
+          "sexual/minors": false,
+          "violence": false,
+          "violence/graphic": false,
+          "category_scores.harassment": 9.212334e-07,
+          "category_scores.harassment/threatening": 3.6271535e-07,
+          "category_scores.hate": 8.254962e-07,
+          "category_scores.hate/threatening": 1.331843e-08,
+          "category_scores.self-harm": 1.9257865e-07,
+          "category_scores.self-harm/instructions": 6.5028324e-08,
+          "category_scores.self-harm/intent": 2.7525962e-07,
+          "category_scores.sexual": 2.564017e-06,
+          "category_scores.sexual/minors": 4.523274e-07,
+          "category_scores.violence": 2.2942773e-05,
+          "category_scores.violence/graphic": 1.9713439e-06,
+          "num_of_tokens": 11.0,
+          "x": -0.01607982,
+          "y": 0.27986255
+        }
+      },
+      "flat_en.parquet": {
+        "shape": [
+          2996946,
+          31
+        ],
+        "first_row": {
+          "conversation_id": "33f01939a744455c869cb234afca47f1",
+          "model": "wizardlm-13b",
+          "turn": 1,
+          "language": "English",
+          "redacted": false,
+          "content": "how can identity protection ser...otect me against identity theft",
+          "role": "user",
+          "flagged": false,
+          "harassment": false,
+          "harassment/threatening": false,
+          "hate": false,
+          "hate/threatening": false,
+          "self-harm": false,
+          "self-harm/instructions": false,
+          "self-harm/intent": false,
+          "sexual": false,
+          "sexual/minors": false,
+          "violence": false,
+          "violence/graphic": false,
+          "category_scores.harassment": 9.212334e-07,
+          "category_scores.harassment/threatening": 3.6271535e-07,
+          "category_scores.hate": 8.254962e-07,
+          "category_scores.hate/threatening": 1.331843e-08,
+          "category_scores.self-harm": 1.9257865e-07,
+          "category_scores.self-harm/instructions": 6.5028324e-08,
+          "category_scores.self-harm/intent": 2.7525962e-07,
+          "category_scores.sexual": 2.564017e-06,
+          "category_scores.sexual/minors": 4.523274e-07,
+          "category_scores.violence": 2.2942773e-05,
+          "category_scores.violence/graphic": 1.9713439e-06,
+          "num_of_tokens": 11
+        }
+      },
+      "lmsys_with_planar_embeddings_pca500.parquet": {
+        "shape": [
+          2835490,
+          38
+        ],
+        "first_row": {
+          "conversation_id": "33f01939a744455c869cb234afca47f1",
+          "model": "wizardlm-13b",
+          "turn": 1,
+          "language": "English",
+          "redacted": false,
+          "content": "how can identity protection ser...otect me against identity theft",
+          "role": "user",
+          "flagged": false,
+          "harassment": false,
+          "harassment/threatening": false,
+          "hate": false,
+          "hate/threatening": false,
+          "self-harm": false,
+          "self-harm/instructions": false,
+          "self-harm/intent": false,
+          "sexual": false,
+          "sexual/minors": false,
+          "violence": false,
+          "violence/graphic": false,
+          "category_scores.harassment": 9.212334e-07,
+          "category_scores.harassment/threatening": 3.6271535e-07,
+          "category_scores.hate": 8.254962e-07,
+          "category_scores.hate/threatening": 1.331843e-08,
+          "category_scores.self-harm": 1.9257865e-07,
+          "category_scores.self-harm/instructions": 6.5028324e-08,
+          "category_scores.self-harm/intent": 2.7525962e-07,
+          "category_scores.sexual": 2.564017e-06,
+          "category_scores.sexual/minors": 4.523274e-07,
+          "category_scores.violence": 2.2942773e-05,
+          "category_scores.violence/graphic": 1.9713439e-06,
+          "num_of_tokens": 11,
+          "x_umap": 7.932803630828857,
+          "y_umap": -1.7505877017974854,
+          "clusters_07": 4,
+          "clusters_14": 4,
+          "clusters_28": 15,
+          "x_ncvis": -13.98167896270752,
+          "y_ncvis": -5.530224800109863
+        }
+      },
+      "flat_en_embeddings_pca100.npy": null,
+      "flat_en_conversation_grouped_embeddings.parquet": {
+        "shape": [
+          766507,
+          2
+        ],
+        "first_row": {
+          "num_of_tokens": 46,
+          "embeddings": [
+            0.01601533917710185,
+            0.004042537766508758,
+            -0.0019018570892512798,
+            -0.00785744865424931,
+            0.01343825669027865,
+            -0.07119984552264214
+          ]
+        }
+      },
+      "pca500_embeddings.npy": null
+    }
+  },
+  "new_years_resolutions": {
+    "project_group": "figiri",
+    "data_filenames": [
+      "new_years_resolutions_notebook.pdf",
+      "new_years_resolutions_prepped.parquet",
+      "new_years_resolutions_prepped.parquet",
+      "openai_topics_embeddings.parquet",
+      "various_scatter_plots.pdf",
+      "various_scatter_plots.pdf"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/figiri/new_years_resolutions/new_years_resolutions_notebook.pdf": 99568,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/new_years_resolutions/with_hashtags/new_years_resolutions_prepped.parquet": 1382254,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/new_years_resolutions/without_hashtags/new_years_resolutions_prepped.parquet": 1382292,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/new_years_resolutions/openai_topics_embeddings.parquet": 2130529,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/new_years_resolutions/without_hashtags/various_scatter_plots.pdf": 2154804,
+      "...": "...",
+      "/Users/thorwhalen/Dropbox/_odata/figiri/new_years_resolutions/openai_text_embeddings.parquet": 57073772
+    },
+    "num_of_data_files": 10,
+    "tables_info": {
+      "new_years_resolutions_notebook.pdf": null,
+      "new_years_resolutions_prepped.parquet": {
+        "shape": [
+          4723,
+          31
+        ],
+        "first_row": {
+          "tweet_created": "2014-12-21 16:11:00",
+          "tweet_text": "#NewYearsResolution to not put ...getting it from the machine #ew",
+          "tweet_category": "Humor",
+          "tweet_topics": "Humor about Personal Growth and Interests Resolutions",
+          "tweet_location": "City of Angels, CA",
+          "tweet_state": "CA",
+          "tweet_region": "West",
+          "user_timezone": "Pacific Time (US & Canada)",
+          "user_gender": "male",
+          "retweet_count": NaN,
+          "text": "to not put the parking lot tick...ter getting it from the machine",
+          "topics_cluster_7": 2,
+          "_id": 0,
+          "pca_x": 0.1966271619797539,
+          "pca_y": -0.2107837704965502,
+          "tsne_x": 7.155760288238525,
+          "tsne_y": 5.774322032928467,
+          "umap_x": 0.19960430264472961,
+          "umap_y": 0.7094860672950745,
+          "tweet_topics_x": -0.8112062072062347,
+          "tweet_topics_y": 0.3564126283994292,
+          "tweet_state_x": 0.6808730946533962,
+          "tweet_state_y": 0.05542920341108416,
+          "topics_cluster_7_x": -0.6617797604631244,
+          "topics_cluster_7_y": -2.228266538973962,
+          "tweet_region_x": 0.8399056915324343,
+          "tweet_region_y": -0.04237824401226331,
+          "tweet_category_x": -1.221515336844825,
+          "tweet_category_y": -0.652300185401745,
+          "user_gender_x": 3.732499323422049,
+          "user_gender_y": 6.924350388941402
+        }
+      },
+      "openai_topics_embeddings.parquet": {
+        "shape": [
+          115,
+          1536
+        ],
+        "first_row": {
+          "0": 0.01612435095012188,
+          "1": 0.0025445737410336733,
+          "2": -0.002369571477174759,
+          "3": 0.05847892910242081,
+          "4": -0.031749844551086426,
+          "...": "...",
+          "1535": 0.018457714468240738
+        }
+      },
+      "various_scatter_plots.pdf": null,
+      "various_scatter_plots_23.pdf": null,
+      "openai_tweet_text_embeddings.parquet": {
+        "shape": [
+          4723,
+          1536
+        ],
+        "first_row": {
+          "0": -0.01790740340948105,
+          "1": -0.03622885048389435,
+          "2": -0.016058992594480515,
+          "3": 0.028184566646814346,
+          "4": -0.055422745645046234,
+          "...": "...",
+          "1535": 0.02006634697318077
+        }
+      },
+      "openai_text_embeddings.parquet": {
+        "shape": [
+          4723,
+          1536
+        ],
+        "first_row": {
+          "0": -0.0009661503718234599,
+          "1": -0.051537662744522095,
+          "2": -0.024597520008683205,
+          "3": 0.012465056963264942,
+          "4": -0.027995767071843147,
+          "...": "...",
+          "1535": 0.02918153814971447
+        }
+      }
+    }
+  },
+  "prompt-injections": {
+    "project_group": "figiri",
+    "data_filenames": [
+      "planar_embeddings.parquet",
+      "prompt_injection_w_umap_embeddings.tsv"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/figiri/prompt-injections/planar_embeddings.parquet": 13197,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/prompt-injections/prompt_injection_w_umap_embeddings.tsv": 102577
+    },
+    "code_file": "prompt_injections.py",
+    "code_contents": "\"\"\"Prep for prompt injections d...turn Dacc(saves_dir=saves_dir)\n",
+    "num_of_data_files": 2,
+    "tables_info": {
+      "planar_embeddings.parquet": {
+        "shape": [
+          662,
+          2
+        ],
+        "first_row": {
+          "x": 8.972538948059082,
+          "y": 1.0228602886199951
+        }
+      },
+      "prompt_injection_w_umap_embeddings.tsv": {
+        "shape": [
+          662,
+          6
+        ],
+        "first_row": {
+          "text": "Refugee crisis in Europe solutions",
+          "label": 0,
+          "x": 8.972539,
+          "y": 1.0228603,
+          "id": 0,
+          "size": 34
+        }
+      }
+    }
+  },
+  "quotes": {
+    "project_group": "figiri",
+    "data_filenames": [
+      "micheleriva_1638_quotes_planar_embeddings.parquet",
+      "micheleriva_1638_quotes_and_embeddings.parquet"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/figiri/quotes/micheleriva_1638_quotes/micheleriva_1638_quotes_planar_embeddings.parquet": 123993,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/quotes/micheleriva_1638_quotes/micheleriva_1638_quotes_and_embeddings.parquet": 20447463
+    },
+    "num_of_data_files": 2,
+    "tables_info": {
+      "micheleriva_1638_quotes_planar_embeddings.parquet": {
+        "shape": [
+          1638,
+          3
+        ],
+        "first_row": {
+          "quote": "Genius is one percent inspirati... perspiration.. (Thomas Edison)",
+          "x": 11.794733047485352,
+          "y": 5.6215996742248535
+        }
+      },
+      "micheleriva_1638_quotes_and_embeddings.parquet": {
+        "shape": [
+          1638,
+          2
+        ],
+        "first_row": {
+          "quote": "Genius is one percent inspirati...nety-nine percent perspiration.",
+          "embedding": [
+            -0.014480933,
+            -0.0033313667,
+            -0.010877792,
+            0.0025177542,
+            0.05825191,
+            -0.041295957
+          ]
+        }
+      }
+    }
+  },
+  "spotify_playlists": {
+    "project_group": "figiri",
+    "data_filenames": [
+      "superhero_laundry_day.parquet",
+      "holiday_songs_spotify_with_embeddings.parquet",
+      "holiday_songs_spotify_with_embeddings.csv",
+      "greatest_500_songs.parquet",
+      "greatest_500_songs.parquet",
+      "top_500_last_decade.parquet"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/figiri/spotify_playlists/superhero_laundry_day.parquet": 3629,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/spotify_playlists/holiday_playlist/holiday_songs_spotify_with_embeddings.parquet": 48416,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/spotify_playlists/holiday_playlist/holiday_songs_spotify_with_embeddings.csv": 82972,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/spotify_playlists/https/raw.githubusercontent.com_f/thorwhalen_f/sung_content_f/main_f/parquet_f/greatest_500_songs.parquet": 376604,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/spotify_playlists/tables/greatest_500_songs.parquet": 382868,
+      "...": "...",
+      "/Users/thorwhalen/Dropbox/_odata/figiri/spotify_playlists/tables/over_500_million_streams.parquet": 1272649
+    },
+    "num_of_data_files": 13,
+    "tables_info": {
+      "superhero_laundry_day.parquet": {
+        "shape": [
+          3,
+          4
+        ],
+        "first_row": {
+          "name": "Superman",
+          "power_level": 1000,
+          "has_clean_cape": true,
+          "favorite_detergent": "Kryptonite-Free"
+        }
+      },
+      "holiday_songs_spotify_with_embeddings.parquet": {
+        "shape": [
+          167,
+          27
+        ],
+        "first_row": {
+          "column_a": 1,
+          "track_uri": "00IqwkT0PZhJ86PJajRCqk",
+          "danceability": 0.195,
+          "energy": 0.348,
+          "key": "A#",
+          "loudness": -10.106,
+          "mode": "major",
+          "speechiness": 0.0332,
+          "acousticness": 0.82,
+          "instrumentalness": 0.0,
+          "liveness": 0.126,
+          "valence": 0.262,
+          "tempo": 166.824,
+          "duration_ms": 213107,
+          "time_signature": 3,
+          "key_mode": "A# major",
+          "playlist_name": "new_holiday_songs",
+          "playlist_img": "https://mosaic.scdn.co/640/5f79...f59ee24504fc02bfe205945807a2437",
+          "track_name": "Silver Bells",
+          "artist_name": "Johnny Mathis",
+          "album_name": "Merry Christmas",
+          "album_img": "https://i.scdn.co/image/b878b9e27201163be07e746657280ab24802839e",
+          "key_frequency": 466.16,
+          "tsne_x": -3.450695276260376,
+          "tsne_y": 0.43034717440605164,
+          "umap_x": 11.80012321472168,
+          "umap_y": 8.495022773742676
+        }
+      },
+      "holiday_songs_spotify_with_embeddings.csv": {
+        "shape": [
+          167,
+          26
+        ],
+        "first_row": {
+          "track_uri": "00IqwkT0PZhJ86PJajRCqk",
+          "danceability": 0.195,
+          "energy": 0.348,
+          "key": "A#",
+          "loudness": -10.106,
+          "mode": "major",
+          "speechiness": 0.0332,
+          "acousticness": 0.82,
+          "instrumentalness": 0.0,
+          "liveness": 0.126,
+          "valence": 0.262,
+          "tempo": 166.824,
+          "duration_ms": 213107,
+          "time_signature": 3,
+          "key_mode": "A# major",
+          "playlist_name": "new_holiday_songs",
+          "playlist_img": "https://mosaic.scdn.co/640/5f79...f59ee24504fc02bfe205945807a2437",
+          "track_name": "Silver Bells",
+          "artist_name": "Johnny Mathis",
+          "album_name": "Merry Christmas",
+          "album_img": "https://i.scdn.co/image/b878b9e27201163be07e746657280ab24802839e",
+          "key_frequency": 466.16,
+          "tsne_x": -3.4506953,
+          "tsne_y": 0.43034717,
+          "umap_x": 11.800123,
+          "umap_y": 8.495023
+        }
+      },
+      "greatest_500_songs.parquet": {
+        "shape": [
+          500,
+          42
+        ],
+        "first_row": {
+          "name": "Like a Rolling Stone",
+          "popularity": 69,
+          "explicit": false,
+          "album_name": "Highway 61 Revisited",
+          "album_release_date": "1965-08-30",
+          "album_release_year": 1965,
+          "url": "https://open.spotify.com/track/3AhXZa8sUQht0UEdBJgpGc",
+          "artist_list": [
+            "Bob Dylan"
+          ],
+          "first_artist": "Bob Dylan",
+          "id": "3AhXZa8sUQht0UEdBJgpGc",
+          "duration_ms": 369600,
+          "is_local": false,
+          "album_total_tracks": 9,
+          "album_images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b27341720ef0ae31e10d39e43ca2",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e0241720ef0ae31e10d39e43ca2",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d0000485141720ef0ae31e10d39e43ca2",
+              "width": 64
+            }
+          ],
+          "artists_names": "Bob Dylan",
+          "type": "track",
+          "episode": false,
+          "track": true,
+          "album": {
+            "album_type": "album",
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/74ASZWbe4lXaubB36ztrGX"
+                },
+                "href": "https://api.spotify.com/v1/artists/74ASZWbe4lXaubB36ztrGX",
+                "id": "74ASZWbe4lXaubB36ztrGX",
+                "name": "Bob Dylan",
+                "type": "artist",
+                "uri": "spotify:artist:74ASZWbe4lXaubB36ztrGX"
+              }
+            ],
+            "available_markets": [
+              "AR",
+              "AU",
+              "AT",
+              "BE",
+              "BO",
+              "BR"
+            ],
+            "external_urls": {
+              "spotify": "https://open.spotify.com/album/6YabPKtZAjxwyWbuO9p4ZD"
+            },
+            "href": "https://api.spotify.com/v1/albums/6YabPKtZAjxwyWbuO9p4ZD",
+            "id": "6YabPKtZAjxwyWbuO9p4ZD",
+            "images": [
+              {
+                "height": 640,
+                "url": "https://i.scdn.co/image/ab67616d0000b27341720ef0ae31e10d39e43ca2",
+                "width": 640
+              },
+              {
+                "height": 300,
+                "url": "https://i.scdn.co/image/ab67616d00001e0241720ef0ae31e10d39e43ca2",
+                "width": 300
+              },
+              {
+                "height": 64,
+                "url": "https://i.scdn.co/image/ab67616d0000485141720ef0ae31e10d39e43ca2",
+                "width": 64
+              }
+            ],
+            "name": "Highway 61 Revisited",
+            "release_date": "1965-08-30",
+            "release_date_precision": "day",
+            "total_tracks": 9,
+            "type": "album",
+            "uri": "spotify:album:6YabPKtZAjxwyWbuO9p4ZD"
+          },
+          "disc_number": 1,
+          "track_number": 1,
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/74ASZWbe4lXaubB36ztrGX"
+              },
+              "href": "https://api.spotify.com/v1/artists/74ASZWbe4lXaubB36ztrGX",
+              "id": "74ASZWbe4lXaubB36ztrGX",
+              "name": "Bob Dylan",
+              "type": "artist",
+              "uri": "spotify:artist:74ASZWbe4lXaubB36ztrGX"
+            }
+          ],
+          "preview_url": "https://p.scdn.co/mp3-preview/d...30f2a83854a48fb938ad88227a01ec9",
+          "uri": "spotify:track:3AhXZa8sUQht0UEdBJgpGc",
+          "href": "https://api.spotify.com/v1/tracks/3AhXZa8sUQht0UEdBJgpGc",
+          "available_markets": [
+            "AR",
+            "AU",
+            "AT",
+            "BE",
+            "BO",
+            "BR"
+          ],
+          "external_ids": {
+            "isrc": "USSM19922509"
+          },
+          "external_urls": {
+            "spotify": "https://open.spotify.com/track/3AhXZa8sUQht0UEdBJgpGc"
+          },
+          "acousticness": 0.731,
+          "danceability": 0.482,
+          "energy": 0.721,
+          "instrumentalness": 0.0,
+          "liveness": 0.189,
+          "loudness": -6.839,
+          "speechiness": 0.0321,
+          "valence": 0.557,
+          "tempo": 95.263,
+          "key": 0,
+          "mode": 1,
+          "time_signature": 4,
+          "x": 0.5946694612503052,
+          "y": 12.291985511779785
+        }
+      },
+      "top_500_last_decade.parquet": {
+        "shape": [
+          508,
+          42
+        ],
+        "first_row": {
+          "name": "Heart Attack",
+          "popularity": 78,
+          "explicit": false,
+          "album_name": "Demi",
+          "album_release_date": "2013-01-01",
+          "album_release_year": 2013,
+          "url": "https://open.spotify.com/track/1V6gIisPpYqgFeWbMLI0bA",
+          "artist_list": [
+            "Demi Lovato"
+          ],
+          "first_artist": "Demi Lovato",
+          "id": "1V6gIisPpYqgFeWbMLI0bA",
+          "duration_ms": 210840,
+          "is_local": false,
+          "album_total_tracks": 13,
+          "album_images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b273aadb13ae608f6af20528409b",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e02aadb13ae608f6af20528409b",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d00004851aadb13ae608f6af20528409b",
+              "width": 64
+            }
+          ],
+          "artists_names": "Demi Lovato",
+          "type": "track",
+          "episode": false,
+          "track": true,
+          "album": {
+            "album_type": "album",
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/6S2OmqARrzebs0tKUEyXyp"
+                },
+                "href": "https://api.spotify.com/v1/artists/6S2OmqARrzebs0tKUEyXyp",
+                "id": "6S2OmqARrzebs0tKUEyXyp",
+                "name": "Demi Lovato",
+                "type": "artist",
+                "uri": "spotify:artist:6S2OmqARrzebs0tKUEyXyp"
+              }
+            ],
+            "available_markets": [
+              "AR",
+              "AU",
+              "AT",
+              "BE",
+              "BO",
+              "BR"
+            ],
+            "external_urls": {
+              "spotify": "https://open.spotify.com/album/6Kssm2LosQ0WyLukFZkEG5"
+            },
+            "href": "https://api.spotify.com/v1/albums/6Kssm2LosQ0WyLukFZkEG5",
+            "id": "6Kssm2LosQ0WyLukFZkEG5",
+            "images": [
+              {
+                "height": 640,
+                "url": "https://i.scdn.co/image/ab67616d0000b273aadb13ae608f6af20528409b",
+                "width": 640
+              },
+              {
+                "height": 300,
+                "url": "https://i.scdn.co/image/ab67616d00001e02aadb13ae608f6af20528409b",
+                "width": 300
+              },
+              {
+                "height": 64,
+                "url": "https://i.scdn.co/image/ab67616d00004851aadb13ae608f6af20528409b",
+                "width": 64
+              }
+            ],
+            "name": "Demi",
+            "release_date": "2013-01-01",
+            "release_date_precision": "day",
+            "total_tracks": 13,
+            "type": "album",
+            "uri": "spotify:album:6Kssm2LosQ0WyLukFZkEG5"
+          },
+          "disc_number": 1,
+          "track_number": 1,
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/6S2OmqARrzebs0tKUEyXyp"
+              },
+              "href": "https://api.spotify.com/v1/artists/6S2OmqARrzebs0tKUEyXyp",
+              "id": "6S2OmqARrzebs0tKUEyXyp",
+              "name": "Demi Lovato",
+              "type": "artist",
+              "uri": "spotify:artist:6S2OmqARrzebs0tKUEyXyp"
+            }
+          ],
+          "preview_url": "https://p.scdn.co/mp3-preview/1...30f2a83854a48fb938ad88227a01ec9",
+          "uri": "spotify:track:1V6gIisPpYqgFeWbMLI0bA",
+          "href": "https://api.spotify.com/v1/tracks/1V6gIisPpYqgFeWbMLI0bA",
+          "available_markets": [
+            "AR",
+            "AU",
+            "AT",
+            "BE",
+            "BO",
+            "BR"
+          ],
+          "external_ids": {
+            "isrc": "USHR11334249"
+          },
+          "external_urls": {
+            "spotify": "https://open.spotify.com/track/1V6gIisPpYqgFeWbMLI0bA"
+          },
+          "acousticness": 0.0738,
+          "danceability": 0.504,
+          "energy": 0.785,
+          "instrumentalness": 0.0,
+          "liveness": 0.239,
+          "loudness": -4.802,
+          "speechiness": 0.104,
+          "valence": 0.502,
+          "tempo": 173.968,
+          "key": 8,
+          "mode": 1,
+          "time_signature": 4,
+          "x": 8.775247573852539,
+          "y": 13.712613105773926
+        }
+      },
+      "spotify_top_500_streamed.parquet": {
+        "shape": [
+          500,
+          42
+        ],
+        "first_row": {
+          "name": "Blinding Lights",
+          "popularity": 87,
+          "explicit": false,
+          "album_name": "After Hours",
+          "album_release_date": "2020-03-20",
+          "album_release_year": 2020,
+          "url": "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b",
+          "artist_list": [
+            "The Weeknd"
+          ],
+          "first_artist": "The Weeknd",
+          "id": "0VjIjW4GlUZAMYd2vXMi3b",
+          "duration_ms": 200040,
+          "is_local": false,
+          "album_total_tracks": 14,
+          "album_images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e028863bc11d2aa12b54f5aeb36",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d000048518863bc11d2aa12b54f5aeb36",
+              "width": 64
+            }
+          ],
+          "artists_names": "The Weeknd",
+          "type": "track",
+          "episode": false,
+          "track": true,
+          "album": {
+            "album_type": "album",
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ"
+                },
+                "href": "https://api.spotify.com/v1/artists/1Xyo4u8uXC1ZmMpatF05PJ",
+                "id": "1Xyo4u8uXC1ZmMpatF05PJ",
+                "name": "The Weeknd",
+                "type": "artist",
+                "uri": "spotify:artist:1Xyo4u8uXC1ZmMpatF05PJ"
+              }
+            ],
+            "available_markets": [
+              "AR",
+              "AU",
+              "AT",
+              "BE",
+              "BO",
+              "BR"
+            ],
+            "external_urls": {
+              "spotify": "https://open.spotify.com/album/4yP0hdKOZPNshxUOjY0cZj"
+            },
+            "href": "https://api.spotify.com/v1/albums/4yP0hdKOZPNshxUOjY0cZj",
+            "id": "4yP0hdKOZPNshxUOjY0cZj",
+            "images": [
+              {
+                "height": 640,
+                "url": "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36",
+                "width": 640
+              },
+              {
+                "height": 300,
+                "url": "https://i.scdn.co/image/ab67616d00001e028863bc11d2aa12b54f5aeb36",
+                "width": 300
+              },
+              {
+                "height": 64,
+                "url": "https://i.scdn.co/image/ab67616d000048518863bc11d2aa12b54f5aeb36",
+                "width": 64
+              }
+            ],
+            "name": "After Hours",
+            "release_date": "2020-03-20",
+            "release_date_precision": "day",
+            "total_tracks": 14,
+            "type": "album",
+            "uri": "spotify:album:4yP0hdKOZPNshxUOjY0cZj"
+          },
+          "disc_number": 1,
+          "track_number": 9,
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ"
+              },
+              "href": "https://api.spotify.com/v1/artists/1Xyo4u8uXC1ZmMpatF05PJ",
+              "id": "1Xyo4u8uXC1ZmMpatF05PJ",
+              "name": "The Weeknd",
+              "type": "artist",
+              "uri": "spotify:artist:1Xyo4u8uXC1ZmMpatF05PJ"
+            }
+          ],
+          "preview_url": "https://p.scdn.co/mp3-preview/5...30f2a83854a48fb938ad88227a01ec9",
+          "uri": "spotify:track:0VjIjW4GlUZAMYd2vXMi3b",
+          "href": "https://api.spotify.com/v1/tracks/0VjIjW4GlUZAMYd2vXMi3b",
+          "available_markets": [
+            "AR",
+            "AU",
+            "AT",
+            "BE",
+            "BO",
+            "BR"
+          ],
+          "external_ids": {
+            "isrc": "USUG11904206"
+          },
+          "external_urls": {
+            "spotify": "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b"
+          },
+          "acousticness": 0.00143,
+          "danceability": 0.513,
+          "energy": 0.73,
+          "instrumentalness": 9.54e-05,
+          "liveness": 0.0897,
+          "loudness": -5.94,
+          "speechiness": 0.0598,
+          "valence": 0.334,
+          "tempo": 171.001,
+          "key": 1,
+          "mode": 1,
+          "time_signature": 4,
+          "x": 4.105282783508301,
+          "y": 7.161435127258301
+        }
+      },
+      "rolling_stone_500_greatest_songs.parquet": {
+        "shape": [
+          584,
+          42
+        ],
+        "first_row": {
+          "name": "Respect",
+          "popularity": 73,
+          "explicit": false,
+          "album_name": "I Never Loved a Man the Way I Love You",
+          "album_release_date": "1967-03-10",
+          "album_release_year": 1967,
+          "url": "https://open.spotify.com/track/7s25THrKz86DM225dOYwnr",
+          "artist_list": [
+            "Aretha Franklin"
+          ],
+          "first_artist": "Aretha Franklin",
+          "id": "7s25THrKz86DM225dOYwnr",
+          "duration_ms": 147600,
+          "is_local": false,
+          "album_total_tracks": 14,
+          "album_images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b2736aa9314b7ddfbd8f036ba3ac",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e026aa9314b7ddfbd8f036ba3ac",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d000048516aa9314b7ddfbd8f036ba3ac",
+              "width": 64
+            }
+          ],
+          "artists_names": "Aretha Franklin",
+          "type": "track",
+          "episode": false,
+          "track": true,
+          "album": {
+            "album_type": "album",
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/7nwUJBm0HE4ZxD3f5cy5ok"
+                },
+                "href": "https://api.spotify.com/v1/artists/7nwUJBm0HE4ZxD3f5cy5ok",
+                "id": "7nwUJBm0HE4ZxD3f5cy5ok",
+                "name": "Aretha Franklin",
+                "type": "artist",
+                "uri": "spotify:artist:7nwUJBm0HE4ZxD3f5cy5ok"
+              }
+            ],
+            "available_markets": [
+              "AR",
+              "AU",
+              "AT",
+              "BE",
+              "BO",
+              "BR"
+            ],
+            "external_urls": {
+              "spotify": "https://open.spotify.com/album/5WndWfzGwCkHzAbQXVkg2V"
+            },
+            "href": "https://api.spotify.com/v1/albums/5WndWfzGwCkHzAbQXVkg2V",
+            "id": "5WndWfzGwCkHzAbQXVkg2V",
+            "images": [
+              {
+                "height": 640,
+                "url": "https://i.scdn.co/image/ab67616d0000b2736aa9314b7ddfbd8f036ba3ac",
+                "width": 640
+              },
+              {
+                "height": 300,
+                "url": "https://i.scdn.co/image/ab67616d00001e026aa9314b7ddfbd8f036ba3ac",
+                "width": 300
+              },
+              {
+                "height": 64,
+                "url": "https://i.scdn.co/image/ab67616d000048516aa9314b7ddfbd8f036ba3ac",
+                "width": 64
+              }
+            ],
+            "name": "I Never Loved a Man the Way I Love You",
+            "release_date": "1967-03-10",
+            "release_date_precision": "day",
+            "total_tracks": 14,
+            "type": "album",
+            "uri": "spotify:album:5WndWfzGwCkHzAbQXVkg2V"
+          },
+          "disc_number": 1,
+          "track_number": 1,
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/7nwUJBm0HE4ZxD3f5cy5ok"
+              },
+              "href": "https://api.spotify.com/v1/artists/7nwUJBm0HE4ZxD3f5cy5ok",
+              "id": "7nwUJBm0HE4ZxD3f5cy5ok",
+              "name": "Aretha Franklin",
+              "type": "artist",
+              "uri": "spotify:artist:7nwUJBm0HE4ZxD3f5cy5ok"
+            }
+          ],
+          "preview_url": "https://p.scdn.co/mp3-preview/7...30f2a83854a48fb938ad88227a01ec9",
+          "uri": "spotify:track:7s25THrKz86DM225dOYwnr",
+          "href": "https://api.spotify.com/v1/tracks/7s25THrKz86DM225dOYwnr",
+          "available_markets": [
+            "AR",
+            "AU",
+            "AT",
+            "BE",
+            "BO",
+            "BR"
+          ],
+          "external_ids": {
+            "isrc": "USAT20801240"
+          },
+          "external_urls": {
+            "spotify": "https://open.spotify.com/track/7s25THrKz86DM225dOYwnr"
+          },
+          "acousticness": 0.164,
+          "danceability": 0.805,
+          "energy": 0.558,
+          "instrumentalness": 2.2e-05,
+          "liveness": 0.0546,
+          "loudness": -5.226,
+          "speechiness": 0.041,
+          "valence": 0.965,
+          "tempo": 114.95,
+          "key": 0,
+          "mode": 1,
+          "time_signature": 4,
+          "x": 0.3033854365348816,
+          "y": 1.3040560483932495
+        }
+      },
+      "over_500_million_streams.parquet": {
+        "shape": [
+          1875,
+          42
+        ],
+        "first_row": {
+          "name": "Blinding Lights",
+          "popularity": 18,
+          "explicit": false,
+          "album_name": "Blinding Lights",
+          "album_release_date": "2019-11-29",
+          "album_release_year": 2019,
+          "url": "https://open.spotify.com/track/0sf12qNH5qcw8qpgymFOqD",
+          "artist_list": [
+            "The Weeknd"
+          ],
+          "first_artist": "The Weeknd",
+          "id": "0sf12qNH5qcw8qpgymFOqD",
+          "duration_ms": 201573,
+          "is_local": false,
+          "album_total_tracks": 1,
+          "album_images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/ab67616d0000b273c464fabb4e51b72d657f779a",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/ab67616d00001e02c464fabb4e51b72d657f779a",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/ab67616d00004851c464fabb4e51b72d657f779a",
+              "width": 64
+            }
+          ],
+          "artists_names": "The Weeknd",
+          "type": "track",
+          "episode": false,
+          "track": true,
+          "album": {
+            "album_type": "single",
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ"
+                },
+                "href": "https://api.spotify.com/v1/artists/1Xyo4u8uXC1ZmMpatF05PJ",
+                "id": "1Xyo4u8uXC1ZmMpatF05PJ",
+                "name": "The Weeknd",
+                "type": "artist",
+                "uri": "spotify:artist:1Xyo4u8uXC1ZmMpatF05PJ"
+              }
+            ],
+            "available_markets": [
+              "KR"
+            ],
+            "external_urls": {
+              "spotify": "https://open.spotify.com/album/2ZfHkwHuoAZrlz7RMj0PDz"
+            },
+            "href": "https://api.spotify.com/v1/albums/2ZfHkwHuoAZrlz7RMj0PDz",
+            "id": "2ZfHkwHuoAZrlz7RMj0PDz",
+            "images": [
+              {
+                "height": 640,
+                "url": "https://i.scdn.co/image/ab67616d0000b273c464fabb4e51b72d657f779a",
+                "width": 640
+              },
+              {
+                "height": 300,
+                "url": "https://i.scdn.co/image/ab67616d00001e02c464fabb4e51b72d657f779a",
+                "width": 300
+              },
+              {
+                "height": 64,
+                "url": "https://i.scdn.co/image/ab67616d00004851c464fabb4e51b72d657f779a",
+                "width": 64
+              }
+            ],
+            "name": "Blinding Lights",
+            "release_date": "2019-11-29",
+            "release_date_precision": "day",
+            "total_tracks": 1,
+            "type": "album",
+            "uri": "spotify:album:2ZfHkwHuoAZrlz7RMj0PDz"
+          },
+          "disc_number": 1,
+          "track_number": 1,
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ"
+              },
+              "href": "https://api.spotify.com/v1/artists/1Xyo4u8uXC1ZmMpatF05PJ",
+              "id": "1Xyo4u8uXC1ZmMpatF05PJ",
+              "name": "The Weeknd",
+              "type": "artist",
+              "uri": "spotify:artist:1Xyo4u8uXC1ZmMpatF05PJ"
+            }
+          ],
+          "preview_url": "https://p.scdn.co/mp3-preview/5...30f2a83854a48fb938ad88227a01ec9",
+          "uri": "spotify:track:0sf12qNH5qcw8qpgymFOqD",
+          "href": "https://api.spotify.com/v1/tracks/0sf12qNH5qcw8qpgymFOqD",
+          "available_markets": [
+            "KR"
+          ],
+          "external_ids": {
+            "isrc": "USUG11904206"
+          },
+          "external_urls": {
+            "spotify": "https://open.spotify.com/track/0sf12qNH5qcw8qpgymFOqD"
+          },
+          "acousticness": 0.00147,
+          "danceability": 0.512,
+          "energy": 0.796,
+          "instrumentalness": 0.000209,
+          "liveness": 0.0938,
+          "loudness": -4.075,
+          "speechiness": 0.0645,
+          "valence": 0.344,
+          "tempo": 171.014,
+          "key": 1,
+          "mode": 1,
+          "time_signature": 4,
+          "x": 1.3157117366790771,
+          "y": 4.019090175628662
+        }
+      }
+    }
+  },
+  "twitter_sentiment": {
+    "project_group": "imbed_saves",
+    "data_filenames": [
+      "twitter_sentiment.zip"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/twitter_sentiment/twitter_sentiment.zip": 84855679
+    },
+    "code_file": "twitter_sentiment.py",
+    "code_contents": "\"\"\"Data prep for Eurovis data.\"...': [1, 2, 3], 'b': [4, 5, 6]})\n",
+    "num_of_data_files": 1,
+    "tables_info": {
+      "twitter_sentiment.zip": null
+    }
+  },
+  "wildchat": {
+    "project_group": "imbed_saves",
+    "data_filenames": [
+      "clusters.parquet",
+      "planar_embeddings.parquet",
+      "metadata.parquet",
+      "scores.parquet",
+      "segments.parquet",
+      "embeddable_df.parquet"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/clusters.parquet": 13580581,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/planar_embeddings.parquet": 27261163,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/metadata.parquet": 52541177,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/scores.parquet": 477693816,
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/segments.parquet": 2275809084,
+      "...": "...",
+      "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/embeddings.parquet": 24733129415
+    },
+    "code_file": "wildchat.py",
+    "code_contents": "\"\"\"Data prep for Github Reposit...#         )\n#         return r\n",
+    "num_of_data_files": 8,
+    "tables_info": {
+      "clusters.parquet": {
+        "shape": [
+          2016583,
+          5
+        ],
+        "first_row": {
+          "cluster_05": 3,
+          "cluster_08": 3,
+          "cluster_13": 4,
+          "cluster_21": 20,
+          "cluster_34": 32
+        }
+      },
+      "planar_embeddings.parquet": {
+        "shape": [
+          2016583,
+          2
+        ],
+        "first_row": {
+          "x": 3.20758056640625,
+          "y": 19.062686920166016
+        }
+      },
+      "metadata.parquet": {
+        "shape": [
+          3884385,
+          7
+        ],
+        "first_row": {
+          "id_": 0,
+          "timestamp": "2023-04-09T00:02:53+00:00",
+          "role": "user",
+          "language": "English",
+          "conversation.redacted": false,
+          "country": "United States",
+          "token_count": 307
+        }
+      },
+      "scores.parquet": {
+        "shape": [
+          3884385,
+          19
+        ],
+        "first_row": {
+          "harassment": 0.000484861753648147,
+          "harassment_threatening": 0.00012471186346374452,
+          "hate": 0.000457498652394861,
+          "hate_threatening": 1.3141398994775955e-05,
+          "self-harm": 5.52945930394344e-05,
+          "...": "...",
+          "toxicity": 0.005422386806458235
+        }
+      },
+      "segments.parquet": {
+        "shape": [
+          3884385,
+          2
+        ],
+        "first_row": {
+          "id_": 0,
+          "content": "Hey there! Are you familiar wit...ional. Describe the world well."
+        }
+      },
+      "embeddable_df.parquet": {
+        "shape": [
+          3884385,
+          58
+        ],
+        "first_row": {
+          "conversation_hash": "c9ec5b440fbdd2a269333dd241f32f64",
+          "model": "gpt-4-0314",
+          "timestamp": "2023-04-09T00:02:53+00:00",
+          "turn": 1,
+          "language": "English",
+          "toxic": false,
+          "redacted": false,
+          "state": "Texas",
+          "country": "United States",
+          "hashed_ip": "22fd87ba9b98f3d379b23c7b52961f2d4a8505127e58b3104b227a8ca1ce7260",
+          "header": {
+            "accept-language": "en-US,en;q=0.9,es;q=0.8",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; W... Chrome/111.0.0.0 Safari/537.36"
+          },
+          "conversation.content": "Hey there! Are you familiar wit...ional. Describe the world well.",
+          "conversation.country": "United States",
+          "conversation.hashed_ip": "22fd87ba9b98f3d379b23c7b52961f2d4a8505127e58b3104b227a8ca1ce7260",
+          "conversation.header": {
+            "accept-language": "en-US,en;q=0.9,es;q=0.8",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; W... Chrome/111.0.0.0 Safari/537.36"
+          },
+          "conversation.language": "English",
+          "conversation.redacted": false,
+          "conversation.role": "user",
+          "conversation.state": "Texas",
+          "conversation.timestamp": "NaT",
+          "conversation.toxic": false,
+          "conversation.turn_identifier": 101001,
+          "openai_moderation.flagged": false,
+          "detoxify_moderation.identity_attack": 0.00020589135237969458,
+          "detoxify_moderation.insult": 0.002148400293663144,
+          "detoxify_moderation.obscene": 0.0004123652761336416,
+          "detoxify_moderation.severe_toxicity": 3.0470857382169925e-05,
+          "detoxify_moderation.sexual_explicit": 0.00012746300490107387,
+          "detoxify_moderation.threat": 6.507332727778703e-05,
+          "detoxify_moderation.toxicity": 0.005422386806458235,
+          "openai_moderation.categories.harassment": false,
+          "openai_moderation.categories.harassment_threatening": false,
+          "openai_moderation.categories.hate": false,
+          "openai_moderation.categories.hate_threatening": false,
+          "openai_moderation.categories.self-harm": false,
+          "openai_moderation.categories.self_harm": false,
+          "openai_moderation.categories.self_harm_instructions": false,
+          "openai_moderation.categories.self_harm_intent": false,
+          "openai_moderation.categories.sexual": false,
+          "openai_moderation.categories.sexual_minors": false,
+          "openai_moderation.categories.violence": false,
+          "openai_moderation.categories.violence_graphic": false,
+          "openai_moderation.category_scores.harassment": 0.000484861753648147,
+          "openai_moderation.category_scores.harassment_threatening": 0.00012471186346374452,
+          "openai_moderation.category_scores.hate": 0.000457498652394861,
+          "openai_moderation.category_scores.hate_threatening": 1.3141398994775955e-05,
+          "openai_moderation.category_scores.self-harm": 5.52945930394344e-05,
+          "openai_moderation.category_scores.self_harm": 5.52945930394344e-05,
+          "openai_moderation.category_scores.self_harm_instructions": 1.1666821819744655e-06,
+          "openai_moderation.category_scores.self_harm_intent": 1.4811689652560744e-05,
+          "openai_moderation.category_scores.sexual": 0.006505185272544622,
+          "openai_moderation.category_scores.sexual_minors": 0.00020243361359462142,
+          "openai_moderation.category_scores.violence": 0.08307147771120071,
+          "openai_moderation.category_scores.violence_graphic": 5.154956306796521e-05,
+          "id_": 0,
+          "segment_length": 1373,
+          "token_count": 307,
+          "segment_is_valid": true
+        }
+      },
+      "wildchat_train.parquet": {
+        "shape": [
+          3930084,
+          32
+        ],
+        "first_row": {
+          "conversation_hash": "c9ec5b440fbdd2a269333dd241f32f64",
+          "model": "gpt-4-0314",
+          "timestamp": "2023-04-09T00:02:53+00:00",
+          "turn": 1,
+          "language": "English",
+          "toxic": false,
+          "redacted": false,
+          "state": "Texas",
+          "country": "United States",
+          "hashed_ip": "22fd87ba9b98f3d379b23c7b52961f2d4a8505127e58b3104b227a8ca1ce7260",
+          "header": {
+            "accept-language": "en-US,en;q=0.9,es;q=0.8",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; W... Chrome/111.0.0.0 Safari/537.36"
+          },
+          "conversation.content": "Hey there! Are you familiar wit...ional. Describe the world well.",
+          "conversation.country": "United States",
+          "conversation.hashed_ip": "22fd87ba9b98f3d379b23c7b52961f2d4a8505127e58b3104b227a8ca1ce7260",
+          "conversation.header": {
+            "accept-language": "en-US,en;q=0.9,es;q=0.8",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; W... Chrome/111.0.0.0 Safari/537.36"
+          },
+          "conversation.language": "English",
+          "conversation.redacted": false,
+          "conversation.role": "user",
+          "conversation.state": "Texas",
+          "conversation.timestamp": "NaT",
+          "conversation.toxic": false,
+          "conversation.turn_identifier": 101001,
+          "openai_moderation.categories": {
+            "harassment": false,
+            "harassment/threatening": false,
+            "harassment_threatening": false,
+            "hate": false,
+            "hate/threatening": false,
+            "...": "...",
+            "violence_graphic": false
+          },
+          "openai_moderation.category_scores": {
+            "harassment": 0.000484861753648147,
+            "harassment/threatening": 0.00012471186346374452,
+            "harassment_threatening": 0.00012471186346374452,
+            "hate": 0.000457498652394861,
+            "hate/threatening": 1.3141398994775955e-05,
+            "...": "...",
+            "violence_graphic": 5.154956306796521e-05
+          },
+          "openai_moderation.flagged": false,
+          "detoxify_moderation.identity_attack": 0.00020589135237969458,
+          "detoxify_moderation.insult": 0.002148400293663144,
+          "detoxify_moderation.obscene": 0.0004123652761336416,
+          "detoxify_moderation.severe_toxicity": 3.0470857382169925e-05,
+          "detoxify_moderation.sexual_explicit": 0.00012746300490107387,
+          "detoxify_moderation.threat": 6.507332727778703e-05,
+          "detoxify_moderation.toxicity": 0.005422386806458235
+        }
+      }
+    }
+  },
+  "wordnet_words": {
+    "project_group": "figiri",
+    "data_filenames": [
+      "substance_meronyms.parquet",
+      "substance_holonyms.parquet",
+      "in_region_domains.parquet",
+      "region_domains.parquet",
+      "in_usage_domains.parquet",
+      "usage_domains.parquet"
+    ],
+    "data_filepaths": {
+      "/Users/thorwhalen/Dropbox/_odata/figiri/wordnet_words/link_data/substance_meronyms.parquet": 14813,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/wordnet_words/link_data/substance_holonyms.parquet": 14860,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/wordnet_words/link_data/in_region_domains.parquet": 18160,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/wordnet_words/link_data/region_domains.parquet": 18794,
+      "/Users/thorwhalen/Dropbox/_odata/figiri/wordnet_words/link_data/in_usage_domains.parquet": 19785,
+      "...": "...",
+      "/Users/thorwhalen/Dropbox/_odata/figiri/wordnet_words/words_embeddings.parquet": 469006111
+    },
+    "code_file": "wordnet_words.py",
+    "code_contents": "\"\"\"\nPrepare wordnet words data....rdnet_collection_attr_names)\n)\n",
+    "num_of_data_files": 28,
+    "tables_info": {
+      "substance_meronyms.parquet": {
+        "shape": [
+          836,
+          2
+        ],
+        "first_row": {
+          "source": "absinth.n.01.absinth",
+          "target": "anise.n.02.aniseed"
+        }
+      },
+      "substance_holonyms.parquet": {
+        "shape": [
+          836,
+          2
+        ],
+        "first_row": {
+          "source": "adenine.n.01.a",
+          "target": "deoxyribonucleic_acid.n.01.dna"
+        }
+      },
+      "in_region_domains.parquet": {
+        "shape": [
+          1644,
+          2
+        ],
+        "first_row": {
+          "source": "abkhaz.n.02.abkhaz",
+          "target": "abkhaz.n.03.abkhaz"
+        }
+      },
+      "region_domains.parquet": {
+        "shape": [
+          1644,
+          2
+        ],
+        "first_row": {
+          "source": "alex_boncayao_brigade.n.01.abb",
+          "target": "philippines.n.01.philippines"
+        }
+      },
+      "in_usage_domains.parquet": {
+        "shape": [
+          2333,
+          2
+        ],
+        "first_row": {
+          "source": "african_american_vernacular_english.n.01.aave",
+          "target": "gangsta.n.01.gangsta"
+        }
+      },
+      "usage_domains.parquet": {
+        "shape": [
+          2333,
+          2
+        ],
+        "first_row": {
+          "source": "rudiment.n.01.abc",
+          "target": "plural.n.01.plural"
+        }
+      },
+      "causes.parquet": {
+        "shape": [
+          3566,
+          2
+        ],
+        "first_row": {
+          "source": "trip.v.04.activate",
+          "target": "happen.v.01.happening"
+        }
+      },
+      "entailments.parquet": {
+        "shape": [
+          5877,
+          2
+        ],
+        "first_row": {
+          "source": "abort.v.03.abort",
+          "target": "conceive.v.03.conceive"
+        }
+      },
+      "attributes.parquet": {
+        "shape": [
+          2634,
+          2
+        ],
+        "first_row": {
+          "source": "ability.n.01.ability",
+          "target": "unable.a.01.unable"
+        }
+      },
+      "member_meronyms.parquet": {
+        "shape": [
+          3699,
+          2
+        ],
+        "first_row": {
+          "source": "abies.n.01.abies",
+          "target": "fir.n.02.fir"
+        }
+      },
+      "member_holonyms.parquet": {
+        "shape": [
+          3699,
+          2
+        ],
+        "first_row": {
+          "source": "abalone.n.01.abalone",
+          "target": "haliotis.n.01.haliotis"
+        }
+      },
+      "instance_hypernyms.parquet": {
+        "shape": [
+          8830,
+          2
+        ],
+        "first_row": {
+          "source": "aachen.n.01.aachen",
+          "target": "city.n.01.metropolis"
+        }
+      },
+      "instance_hyponyms.parquet": {
+        "shape": [
+          8830,
+          2
+        ],
+        "first_row": {
+          "source": "abbess.n.01.abbess",
+          "target": "bridget.n.01.bridget"
+        }
+      },
+      "in_topic_domains.parquet": {
+        "shape": [
+          10463,
+          2
+        ],
+        "first_row": {
+          "source": "ethiopia.n.01.abyssinia",
+          "target": "rastafarian.n.02.rastafarian"
+        }
+      },
+      "topic_domains.parquet": {
+        "shape": [
+          10463,
+          2
+        ],
+        "first_row": {
+          "source": "adenine.n.01.a",
+          "target": "biochemistry.n.01.biochemistry"
+        }
+      },
+      "part_meronyms.parquet": {
+        "shape": [
+          11311,
+          2
+        ],
+        "first_row": {
+          "source": "ampere.n.02.a",
+          "target": "milliampere.n.01.ma"
+        }
+      },
+      "part_holonyms.parquet": {
+        "shape": [
+          11311,
+          2
+        ],
+        "first_row": {
+          "source": "angstrom.n.01.a",
+          "target": "nanometer.n.01.nanometre"
+        }
+      },
+      "verb_groups.parquet": {
+        "shape": [
+          34470,
+          2
+        ],
+        "first_row": {
+          "source": "abandon.v.04.abandon",
+          "target": "move_over.v.01.given"
+        }
+      },
+      "similar_tos.parquet": {
+        "shape": [
+          34720,
+          2
+        ],
+        "first_row": {
+          "source": "abandoned.s.01.abandoned",
+          "target": "uninhabited.a.01.uninhabited"
+        }
+      },
+      "umap_embeddings.parquet": {
+        "shape": [
+          52078,
+          2
+        ],
+        "first_row": {
+          "umap_x": 3.0279157161712646,
+          "umap_y": 3.76096510887146
+        }
+      },
+      "hypernyms.parquet": {
+        "shape": [
+          258896,
+          2
+        ],
+        "first_row": {
+          "source": "deoxyadenosine_monophosphate.n.01.a",
+          "target": "nucleotide.n.01.nucleotide"
+        }
+      },
+      "root_hypernyms.parquet": {
+        "shape": [
+          301638,
+          2
+        ],
+        "first_row": {
+          "source": "angstrom.n.01.a",
+          "target": "entity.n.01.entity"
+        }
+      },
+      "hyponyms.parquet": {
+        "shape": [
+          258896,
+          2
+        ],
+        "first_row": {
+          "source": "vitamin_a.n.01.a",
+          "target": "vitamin_a1.n.01.retinol"
+        }
+      },
+      "word_and_synset.parquet": {
+        "shape": [
+          123587,
+          2
+        ],
+        "first_row": {
+          "word": "a",
+          "synset": "angstrom.n.01"
+        }
+      },
+      "wordnet_collection_meta.parquet": {
+        "shape": [
+          123587,
+          22
+        ],
+        "first_row": {
+          "attributes": [],
+          "causes": [],
+          "entailments": [],
+          "hypernyms": [
+            "metric_linear_unit.n.01"
+          ],
+          "hyponyms": [],
+          "in_region_domains": [],
+          "in_topic_domains": [],
+          "in_usage_domains": [],
+          "instance_hypernyms": [],
+          "instance_hyponyms": [],
+          "member_holonyms": [],
+          "member_meronyms": [],
+          "part_holonyms": [
+            "nanometer.n.01"
+          ],
+          "part_meronyms": [
+            "picometer.n.01"
+          ],
+          "region_domains": [],
+          "root_hypernyms": [
+            "entity.n.01"
+          ],
+          "similar_tos": [],
+          "substance_holonyms": [],
+          "substance_meronyms": [],
+          "topic_domains": [],
+          "usage_domains": [],
+          "verb_groups": []
+        }
+      },
+      "wordnet_feature_meta.parquet": {
+        "shape": [
+          123587,
+          8
+        ],
+        "first_row": {
+          "word": "a",
+          "frequency": 0.015440912627459126,
+          "definition": "a metric unit of length equal t...hs of electromagnetic radiation",
+          "lexname": "noun.quantity",
+          "name": "angstrom.n.01",
+          "pos": "noun",
+          "umap_x": 3.0279157161712646,
+          "umap_y": 3.76096510887146
+        }
+      },
+      "wordnet_metadata.parquet": {
+        "shape": [
+          123587,
+          29
+        ],
+        "first_row": {
+          "word": "a",
+          "synset": "angstrom.n.01",
+          "example": "",
+          "definition": "a metric unit of length equal t...hs of electromagnetic radiation",
+          "lexname": "noun.quantity",
+          "name": "angstrom.n.01",
+          "pos": "noun",
+          "attributes": [],
+          "causes": [],
+          "entailments": [],
+          "hypernyms": [
+            "metric_linear_unit.n.01"
+          ],
+          "hyponyms": [],
+          "in_region_domains": [],
+          "in_topic_domains": [],
+          "in_usage_domains": [],
+          "instance_hypernyms": [],
+          "instance_hyponyms": [],
+          "member_holonyms": [],
+          "member_meronyms": [],
+          "part_holonyms": [
+            "nanometer.n.01"
+          ],
+          "part_meronyms": [
+            "picometer.n.01"
+          ],
+          "region_domains": [],
+          "root_hypernyms": [
+            "entity.n.01"
+          ],
+          "similar_tos": [],
+          "substance_holonyms": [],
+          "substance_meronyms": [],
+          "topic_domains": [],
+          "usage_domains": [],
+          "verb_groups": []
+        }
+      },
+      "words_embeddings.parquet": {
+        "shape": [
+          52078,
+          1
+        ],
+        "first_row": {
+          "embedding": [
+            0.02674213983118534,
+            0.008698769845068455,
+            -0.00904161762446165,
+            0.0265029426664114,
+            -0.0144155602902174,
+            0.010995053686201572
+          ]
+        }
+      }
+    }
+  }
+}

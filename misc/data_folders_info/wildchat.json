@@ -1,0 +1,259 @@
+{
+  "project_group": "imbed_saves",
+  "data_filenames": [
+    "clusters.parquet",
+    "planar_embeddings.parquet",
+    "metadata.parquet",
+    "scores.parquet",
+    "segments.parquet",
+    "embeddable_df.parquet",
+    "wildchat_train.parquet",
+    "embeddings.parquet"
+  ],
+  "data_filepaths": {
+    "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/clusters.parquet": 13580581,
+    "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/planar_embeddings.parquet": 27261163,
+    "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/metadata.parquet": 52541177,
+    "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/scores.parquet": 477693816,
+    "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/segments.parquet": 2275809084,
+    "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/embeddable_df.parquet": 2907529740,
+    "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/wildchat_train.parquet": 3215864855,
+    "/Users/thorwhalen/Dropbox/_odata/app_data/imbed/saves/wildchat/embeddings.parquet": 24733129415
+  },
+  "code_file": "wildchat.py",
+  "code_contents": "\"\"\"Data prep for Github Repositories data.\n\n\"\"\"\n\nfrom functools import partial\nfrom io import BytesIO\nimport os\nfrom dataclasses import dataclass, KW_ONLY\nfrom typing import Sequence, Callable, Optional\n\nfrom dol import cache_this as _cache_this, Files, Pipe\nfrom graze import url_to_file_download\nfrom graze.base import (\n    return_filepath,\n    return_contents,\n    key_egress_print_downloading_message_with_size,\n)\nfrom dol.tools import cache_property_method\nfrom imbed.util import (\n    saves_join,\n    get_config,\n    planar_embeddings,\n    PlanarEmbeddingSpec,\n    planar_embeddings_dict_to_df,\n    DFLT_PLANAR_EMBEDDING_KIND,\n    ensure_fullpath,\n    ensure_cache,\n    add_extension,\n    CacheSpec,\n    log_calls,\n    log_method_calls,\n    counts,\n)\nfrom imbed.data_prep import kmeans_cluster_indices\nfrom imbed.base import extension_based_wrap\n\nimport pandas as pd\nimport numpy as np\n\n\ndata_name = 'wildchat'\nhuggingface_data_stub = \"allenai/WildChat-1M\"\n# raw_data_name = 'github_repos.parquet'\n\n# TODO: Use config2py tools to use and save default values\n# TODO: Use config2py tools to include a message containing the default values\n_DFLT_CACHE_DIR = saves_join(data_name)\n\nDFLT_CACHE_DIR = os.environ.get('WILDCHAT_CACHE_DIR', default=_DFLT_CACHE_DIR)\n# # For a more flexible configs getter (that will ask user for missing keys):\n# DFLT_CACHE_DIR = get_config('WILDCHAT_CACHE_DIR', default=_DFLT_CACHE_DIR)\n\n# _DFLT_RAW_DATA_FILEPATH = os.path.join(DFLT_CACHE_DIR, raw_data_name)\n# DFLT_RAW_DATA_FILEPATH = get_config(\n#     'GITHUB_REPOS_RAW_DATA_FILEPATH', default=_DFLT_RAW_DATA_FILEPATH\n# )\nDFLT_N_CLUSTERS = (5, 8, 13, 21, 34)\n\n\n# TODO: _cache_this doesn't work well with partial\n# cache_this = partial(_cache_this, cache='cache')\ncache_this = _cache_this\n\nimport oa\nfrom dataclasses import dataclass, KW_ONLY\nfrom imbed.base import (\n    HugfaceDaccBase,\n    DFLT_SAVES_DIR,\n    add_token_info_to_df,\n    DFLT_EMBEDDING_MODEL,\n)\nfrom tabled import expand_rows, expand_columns\n\n\n@dataclass\nclass WildchatDacc(HugfaceDaccBase):\n    huggingface_data_stub: str = huggingface_data_stub\n    name: Optional[str] = data_name\n    _: KW_ONLY\n    saves_dir: Optional[str] = None\n    root_saves_dir: str = DFLT_SAVES_DIR\n    verbose: int = 1\n    model: str = DFLT_EMBEDDING_MODEL\n\n    @cache_this(cache='saves', key=add_extension('parquet'))\n    @log_method_calls\n    def expanded_train(self):\n        return expand_wildchat_data(self.train_data)\n\n    @property\n    def expanded_en(self):\n        return self.expanded_train[self.expanded_train.language == 'English']\n\n    @property\n    def language_conversation_counts(self):\n        return counts(self.train_data.language)\n\n    @property\n    def language_turn_counts(self):\n        return counts(self.expanded_train.language)\n\n    # @cache_this(cache='saves', key=add_extension('.parquet'))\n    # @log_method_calls\n    @cache_this(cache='saves', key=add_extension('.parquet'))\n    @log_method_calls\n    def embeddable_df(self):\n        df = self.expanded_train\n        df['id_'] = df.index.values\n        df['segment_length'] = df['conversation.content'].apply(len)\n        df = add_token_info_to_df(\n            df,\n            segments_col='conversation.content',\n            model=self.model,\n        )  # takes 10mn\n        # then keep only those conversations (grouped by hash) that have all valid segments\n        return df.groupby('conversation_hash').filter(\n            lambda x: x['segment_is_valid'].all()\n        )\n\n\ndef expand_wildchat_data(df):\n    \"\"\"\n    Expand columns and rows of raw wildchat data, to get a more flattened dataframe.\n\n    The raw data contains several columns that have nested data. More specifically,\n    the columns -- 'conversation', 'openai_moderation', and 'detoxify_moderation' --\n    which contain (aligned) lists of dicts, where each dict of a list corresponds to\n    a \"part\" of the conversation conversation: Either the \"user\", or the \"assistant\"\n    role -- the size of this list should be the number of \"turns\" times two (user part,\n    followed with assistant response).\n\n    So we expand the lists, thus expanding the rows to contain exactly a part each.\n    Then we expand the dicts, thus expanding the colums, to contain a field of the dict\n    each.\n    Finally, there's one more level of nested dicts in the\n    'openai_moderation.categories' and 'openai_moderation.category_scores' columns,\n    which we also flatten by expanding columns.\n    Note that before we do this, we drop rows that have null openai_moderation values.\n    There were 16996 such rows in the (row-expanded) raw data.\n\n    \"\"\"\n    # for each (aligned) item of conversation and moderation, make a new row\n    df = expand_rows(df, ['conversation', 'openai_moderation', 'detoxify_moderation'])\n    # These items are dicts, so expand their fields into columns\n    df = expand_columns(\n        df, ['conversation', 'openai_moderation', 'detoxify_moderation']\n    )\n    # openai_moderation has yet one more level of nesting so flatten that too\n    openai_moderation_cols = [\n        'openai_moderation.categories',\n        'openai_moderation.category_scores',\n    ]\n    #   some 16996 rows have null openai_moderation values: drop them before expanding\n    df.dropna(subset=openai_moderation_cols, inplace=True)\n    df = expand_columns(df, openai_moderation_cols)\n    # remove all columns that have a / in them (because they have duplicates)\n    df = df[[c for c in df.columns if '/' not in c]]\n    return df\n\n\n# @dataclass\n# class GithubReposData:\n#     _: KW_ONLY\n#     raw_data_src: str = (\n#         'https://www.dropbox.com/s/kokiypcm2ylx4an/github-repos.parquet?dl=1'\n#     )\n#     cache: CacheSpec = DFLT_CACHE_DIR\n#     raw_data_local_path: str = DFLT_RAW_DATA_FILEPATH\n#     planar_compute_chk_size: int = 1000\n#     embeddings_column: str = 'embedding'\n#     text_segments_column: str = 'text'\n#     planar_embeddings_func: PlanarEmbeddingSpec = 'ncvis'\n#     drop_duplicates: bool = True\n#     n_clusters: Sequence[int] = DFLT_N_CLUSTERS\n#     mk_cluster_learner: Callable = kmeans_cluster_indices\n#     verbose: int = 1\n\n#     def __post_init__(self):\n#         self.raw_data_local_path = ensure_fullpath(\n#             self.raw_data_local_path, conditional_rootdir=self.cache\n#         )\n#         self.cache = extension_based_wrap(ensure_cache(self.cache))\n#         self.log = clog(self.verbose)\n\n#         # TODO: Why do I need to do this?\n#         self.mk_cluster_learner = staticmethod(self.mk_cluster_learner)\n\n#     @property\n#     @log_calls\n#     def _raw_data_bytes(self):\n#         r = url_to_file_download(\n#             self.raw_data_src,\n#             filepath=self.raw_data_local_path,\n#             overwrite=False,\n#             url_egress=key_egress_print_downloading_message_with_size,\n#             return_func=return_contents,\n#         )\n#         return r\n\n#     @cache_this(cache=None)\n#     @log_calls\n#     def raw_data(self):\n#         df = pd.read_parquet(BytesIO(self._raw_data_bytes))\n#         if self.drop_duplicates:\n#             n_rows_before = len(df)\n#             self.log(f\"Dropping duplicate nameWithOwner (github stub)...\")\n#             df = df.drop_duplicates(subset=['nameWithOwner'])\n#             n_rows_after = len(df)\n#             self.log(f\"... Dropped {n_rows_before - n_rows_after} duplicates\")\n#         assert df.nameWithOwner.is_unique, f\"Duplicate nameWithOwner in df\"\n#         df = df.set_index(\"nameWithOwner\", drop=False)\n#         return df\n\n#     @property\n#     def text_segments(self):\n#         return self.raw_data[self.text_segments_column]\n\n#     @property\n#     def embeddings(self):\n#         return self.raw_data[self.embeddings_column]\n\n#     @property\n#     def embeddings_matrix(self):\n#         # Note: NOT the same as self.embeddings.to_numpy()!!\n#         return np.array(self.embeddings.to_list())\n\n#     segment_vectors = embeddings  # alias\n\n#     @cache_this(cache='cache', key=add_extension('.parquet'))\n#     @log_calls\n#     def planar_embeddings(self):\n#         self.log(\n#             \"Computing and saving planar embeddings with {self.planar_embeddings_func}\"\n#         )\n#         r = planar_embeddings_dict_to_df(planar_embeddings(self.segment_vectors))\n#         return r\n\n#     def data_with_planar_embeddings(self):\n#         # join self.raw_data with self.planar_embeddings over the indices\n#         return pd.merge(\n#             self.raw_data, self.planar_embeddings, left_index=True, right_index=True\n#         )\n\n#     @cache_this(cache='cache', key=add_extension('.parquet'))\n#     @log_calls\n#     def cluster_indices(self):\n#         \"\"\"\n#         Make a dataframe containing kmeans cluster indices for the original embeddings.\n#         \"\"\"\n#         self.log(f\"Computing cluster indices for num of clusters: {self.n_clusters}\")\n\n#         def compute_cluster_indices():\n#             for n_clusters in self.n_clusters:\n#                 yield self.mk_cluster_learner(\n#                     self.embeddings_matrix, n_clusters=n_clusters\n#                 )\n\n#         cluster_columns = (\n#             f\"clusters_{n_clusters:02.0f}\" for n_clusters in self.n_clusters\n#         )\n\n#         r = pd.DataFrame(\n#             dict(zip(cluster_columns, compute_cluster_indices())),\n#             index=self.raw_data.index,\n#         )\n#         return r\n",
+  "num_of_data_files": 8,
+  "tables_info": {
+    "clusters.parquet": {
+      "shape": [
+        2016583,
+        5
+      ],
+      "first_row": {
+        "cluster_05": 3,
+        "cluster_08": 3,
+        "cluster_13": 4,
+        "cluster_21": 20,
+        "cluster_34": 32
+      }
+    },
+    "planar_embeddings.parquet": {
+      "shape": [
+        2016583,
+        2
+      ],
+      "first_row": {
+        "x": 3.20758056640625,
+        "y": 19.062686920166016
+      }
+    },
+    "metadata.parquet": {
+      "shape": [
+        3884385,
+        7
+      ],
+      "first_row": {
+        "id_": 0,
+        "timestamp": "2023-04-09T00:02:53+00:00",
+        "role": "user",
+        "language": "English",
+        "conversation.redacted": false,
+        "country": "United States",
+        "token_count": 307
+      }
+    },
+    "scores.parquet": {
+      "shape": [
+        3884385,
+        19
+      ],
+      "first_row": {
+        "harassment": 0.000484861753648147,
+        "harassment_threatening": 0.00012471186346374452,
+        "hate": 0.000457498652394861,
+        "hate_threatening": 1.3141398994775955e-05,
+        "self-harm": 5.52945930394344e-05,
+        "self_harm": 5.52945930394344e-05,
+        "self_harm_instructions": 1.1666821819744655e-06,
+        "self_harm_intent": 1.4811689652560744e-05,
+        "sexual": 0.006505185272544622,
+        "sexual_minors": 0.00020243361359462142,
+        "violence": 0.08307147771120071,
+        "violence_graphic": 5.154956306796521e-05,
+        "identity_attack": 0.00020589135237969458,
+        "insult": 0.002148400293663144,
+        "obscene": 0.0004123652761336416,
+        "severe_toxicity": 3.0470857382169925e-05,
+        "sexual_explicit": 0.00012746300490107387,
+        "threat": 6.507332727778703e-05,
+        "toxicity": 0.005422386806458235
+      }
+    },
+    "segments.parquet": {
+      "shape": [
+        3884385,
+        2
+      ],
+      "first_row": {
+        "id_": 0,
+        "content": "Hey there! Are you familiar with reality shifting? So, I\u2019m refining a foolproof method for reality shifting and want to pick a destination. Want to help me? I\u2019m thinking something pretty personalized. There are a few things that are required of my destination. 1. The quest. I have to have a clear overarching goal in my reality, and don\u2019t make it too crazy. It should be more along the lines of \u201csave the president\u2019s daughter\u201d or \u201cescape this weird wacky sinister place\u201d NOT \u201cget an artifact that literally controls reality\u201d. Seriously, don\u2019t make me fetch an artifact, or fetch anything. Instead, make me DO something. 2. Babes. I need pretty girls. 3. The entry. I need to get to lose consciousness in order to begin my journey in my desired reality, preferably by having it knocked out by one of the aforementioned babes. 4. Action. It needs to be cool. 5. Unconsciousness. Myself and the babes need to pass out in this place, preferably by being knocked out in some way or fainting. And it should happen, like, a lot. With these requirements in mind, you got any unique refined ideas? Don\u2019t be vague, be extremely specific. Also, make your response as long and detailed as possible. Be super specific, especially when describing the world. The world should be self-contained and relatively small/understandable. Also, try to be conversational. Describe the world well."
+      }
+    },
+    "embeddable_df.parquet": {
+      "shape": [
+        3884385,
+        58
+      ],
+      "first_row": {
+        "conversation_hash": "c9ec5b440fbdd2a269333dd241f32f64",
+        "model": "gpt-4-0314",
+        "timestamp": "2023-04-09T00:02:53+00:00",
+        "turn": 1,
+        "language": "English",
+        "toxic": false,
+        "redacted": false,
+        "state": "Texas",
+        "country": "United States",
+        "hashed_ip": "22fd87ba9b98f3d379b23c7b52961f2d4a8505127e58b3104b227a8ca1ce7260",
+        "header": {
+          "accept-language": "en-US,en;q=0.9,es;q=0.8",
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+        },
+        "conversation.content": "Hey there! Are you familiar with reality shifting? So, I\u2019m refining a foolproof method for reality shifting and want to pick a destination. Want to help me? I\u2019m thinking something pretty personalized. There are a few things that are required of my destination. 1. The quest. I have to have a clear overarching goal in my reality, and don\u2019t make it too crazy. It should be more along the lines of \u201csave the president\u2019s daughter\u201d or \u201cescape this weird wacky sinister place\u201d NOT \u201cget an artifact that literally controls reality\u201d. Seriously, don\u2019t make me fetch an artifact, or fetch anything. Instead, make me DO something. 2. Babes. I need pretty girls. 3. The entry. I need to get to lose consciousness in order to begin my journey in my desired reality, preferably by having it knocked out by one of the aforementioned babes. 4. Action. It needs to be cool. 5. Unconsciousness. Myself and the babes need to pass out in this place, preferably by being knocked out in some way or fainting. And it should happen, like, a lot. With these requirements in mind, you got any unique refined ideas? Don\u2019t be vague, be extremely specific. Also, make your response as long and detailed as possible. Be super specific, especially when describing the world. The world should be self-contained and relatively small/understandable. Also, try to be conversational. Describe the world well.",
+        "conversation.country": "United States",
+        "conversation.hashed_ip": "22fd87ba9b98f3d379b23c7b52961f2d4a8505127e58b3104b227a8ca1ce7260",
+        "conversation.header": {
+          "accept-language": "en-US,en;q=0.9,es;q=0.8",
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+        },
+        "conversation.language": "English",
+        "conversation.redacted": false,
+        "conversation.role": "user",
+        "conversation.state": "Texas",
+        "conversation.timestamp": "NaT",
+        "conversation.toxic": false,
+        "conversation.turn_identifier": 101001,
+        "openai_moderation.flagged": false,
+        "detoxify_moderation.identity_attack": 0.00020589135237969458,
+        "detoxify_moderation.insult": 0.002148400293663144,
+        "detoxify_moderation.obscene": 0.0004123652761336416,
+        "detoxify_moderation.severe_toxicity": 3.0470857382169925e-05,
+        "detoxify_moderation.sexual_explicit": 0.00012746300490107387,
+        "detoxify_moderation.threat": 6.507332727778703e-05,
+        "detoxify_moderation.toxicity": 0.005422386806458235,
+        "openai_moderation.categories.harassment": false,
+        "openai_moderation.categories.harassment_threatening": false,
+        "openai_moderation.categories.hate": false,
+        "openai_moderation.categories.hate_threatening": false,
+        "openai_moderation.categories.self-harm": false,
+        "openai_moderation.categories.self_harm": false,
+        "openai_moderation.categories.self_harm_instructions": false,
+        "openai_moderation.categories.self_harm_intent": false,
+        "openai_moderation.categories.sexual": false,
+        "openai_moderation.categories.sexual_minors": false,
+        "openai_moderation.categories.violence": false,
+        "openai_moderation.categories.violence_graphic": false,
+        "openai_moderation.category_scores.harassment": 0.000484861753648147,
+        "openai_moderation.category_scores.harassment_threatening": 0.00012471186346374452,
+        "openai_moderation.category_scores.hate": 0.000457498652394861,
+        "openai_moderation.category_scores.hate_threatening": 1.3141398994775955e-05,
+        "openai_moderation.category_scores.self-harm": 5.52945930394344e-05,
+        "openai_moderation.category_scores.self_harm": 5.52945930394344e-05,
+        "openai_moderation.category_scores.self_harm_instructions": 1.1666821819744655e-06,
+        "openai_moderation.category_scores.self_harm_intent": 1.4811689652560744e-05,
+        "openai_moderation.category_scores.sexual": 0.006505185272544622,
+        "openai_moderation.category_scores.sexual_minors": 0.00020243361359462142,
+        "openai_moderation.category_scores.violence": 0.08307147771120071,
+        "openai_moderation.category_scores.violence_graphic": 5.154956306796521e-05,
+        "id_": 0,
+        "segment_length": 1373,
+        "token_count": 307,
+        "segment_is_valid": true
+      }
+    },
+    "wildchat_train.parquet": {
+      "shape": [
+        3930084,
+        32
+      ],
+      "first_row": {
+        "conversation_hash": "c9ec5b440fbdd2a269333dd241f32f64",
+        "model": "gpt-4-0314",
+        "timestamp": "2023-04-09T00:02:53+00:00",
+        "turn": 1,
+        "language": "English",
+        "toxic": false,
+        "redacted": false,
+        "state": "Texas",
+        "country": "United States",
+        "hashed_ip": "22fd87ba9b98f3d379b23c7b52961f2d4a8505127e58b3104b227a8ca1ce7260",
+        "header": {
+          "accept-language": "en-US,en;q=0.9,es;q=0.8",
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+        },
+        "conversation.content": "Hey there! Are you familiar with reality shifting? So, I\u2019m refining a foolproof method for reality shifting and want to pick a destination. Want to help me? I\u2019m thinking something pretty personalized. There are a few things that are required of my destination. 1. The quest. I have to have a clear overarching goal in my reality, and don\u2019t make it too crazy. It should be more along the lines of \u201csave the president\u2019s daughter\u201d or \u201cescape this weird wacky sinister place\u201d NOT \u201cget an artifact that literally controls reality\u201d. Seriously, don\u2019t make me fetch an artifact, or fetch anything. Instead, make me DO something. 2. Babes. I need pretty girls. 3. The entry. I need to get to lose consciousness in order to begin my journey in my desired reality, preferably by having it knocked out by one of the aforementioned babes. 4. Action. It needs to be cool. 5. Unconsciousness. Myself and the babes need to pass out in this place, preferably by being knocked out in some way or fainting. And it should happen, like, a lot. With these requirements in mind, you got any unique refined ideas? Don\u2019t be vague, be extremely specific. Also, make your response as long and detailed as possible. Be super specific, especially when describing the world. The world should be self-contained and relatively small/understandable. Also, try to be conversational. Describe the world well.",
+        "conversation.country": "United States",
+        "conversation.hashed_ip": "22fd87ba9b98f3d379b23c7b52961f2d4a8505127e58b3104b227a8ca1ce7260",
+        "conversation.header": {
+          "accept-language": "en-US,en;q=0.9,es;q=0.8",
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+        },
+        "conversation.language": "English",
+        "conversation.redacted": false,
+        "conversation.role": "user",
+        "conversation.state": "Texas",
+        "conversation.timestamp": "NaT",
+        "conversation.toxic": false,
+        "conversation.turn_identifier": 101001,
+        "openai_moderation.categories": {
+          "harassment": false,
+          "harassment/threatening": false,
+          "harassment_threatening": false,
+          "hate": false,
+          "hate/threatening": false,
+          "hate_threatening": false,
+          "self-harm": false,
+          "self-harm/instructions": false,
+          "self-harm/intent": false,
+          "self_harm": false,
+          "self_harm_instructions": false,
+          "self_harm_intent": false,
+          "sexual": false,
+          "sexual/minors": false,
+          "sexual_minors": false,
+          "violence": false,
+          "violence/graphic": false,
+          "violence_graphic": false
+        },
+        "openai_moderation.category_scores": {
+          "harassment": 0.000484861753648147,
+          "harassment/threatening": 0.00012471186346374452,
+          "harassment_threatening": 0.00012471186346374452,
+          "hate": 0.000457498652394861,
+          "hate/threatening": 1.3141398994775955e-05,
+          "hate_threatening": 1.3141398994775955e-05,
+          "self-harm": 5.52945930394344e-05,
+          "self-harm/instructions": 1.1666821819744655e-06,
+          "self-harm/intent": 1.4811689652560744e-05,
+          "self_harm": 5.52945930394344e-05,
+          "self_harm_instructions": 1.1666821819744655e-06,
+          "self_harm_intent": 1.4811689652560744e-05,
+          "sexual": 0.006505185272544622,
+          "sexual/minors": 0.00020243361359462142,
+          "sexual_minors": 0.00020243361359462142,
+          "violence": 0.08307147771120071,
+          "violence/graphic": 5.154956306796521e-05,
+          "violence_graphic": 5.154956306796521e-05
+        },
+        "openai_moderation.flagged": false,
+        "detoxify_moderation.identity_attack": 0.00020589135237969458,
+        "detoxify_moderation.insult": 0.002148400293663144,
+        "detoxify_moderation.obscene": 0.0004123652761336416,
+        "detoxify_moderation.severe_toxicity": 3.0470857382169925e-05,
+        "detoxify_moderation.sexual_explicit": 0.00012746300490107387,
+        "detoxify_moderation.threat": 6.507332727778703e-05,
+        "detoxify_moderation.toxicity": 0.005422386806458235
+      }
+    }
+  }
+}
