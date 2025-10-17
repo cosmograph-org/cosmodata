@@ -4,7 +4,7 @@ import os
 import i2
 import dol
 from typing import Callable
-from importlib_resources import files
+from importlib.resources import files
 from functools import partial
 import graze as _graze
 import pandas as pd
@@ -304,8 +304,8 @@ def update_base_with_local(
     * description: description of the data
 
     local_df's information takes precedence over base_df's information.
-    
-    The purpose of base_df is to "seed" local_df. 
+
+    The purpose of base_df is to "seed" local_df.
 
     More precisely, base_df and local_df will be aligned, merging over the url column.
     The rows corresponding to urls that are in one, but not the other, will be added

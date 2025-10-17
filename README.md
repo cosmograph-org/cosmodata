@@ -104,3 +104,127 @@ This repository contains datasets for various projects, each prepared for visual
 
 For further details, please refer to the individual dataset documentation or the linked preparation scripts.
 
+
+
+## Notebook Utilities
+
+This section:
+1. **Explains the why** (seamless Colab/local experience)
+2. **Shows quick examples** (copy-pasteable)
+3. **Highlights key features** (caching, auto-detection)
+4. **Includes practical workflows** (typical notebook usage)
+5. **Provides cache management** (helpful for power users)
+
+`cosmodata` includes utilities to make working with data in notebooks (especially Colab) seamless.
+
+### `ensure_installed` - Lazy Dependency Management
+
+Install packages only when needed, with smart local/Colab detection.
+Note: Most of the time you can just do `%pip install -q ...packages` in your notebook,
+but if you want to ask permission to the user first (which I like doing), 
+or need to ensure installation from python itself, this could help. 
+
+```python
+from cosmodata import ensure_installed
+
+# Simple: space-separated package names
+ensure_installed('graze tabled pandas')
+
+# With version requirements
+ensure_installed('graze>=0.1.0 tabled pandas<2.0')
+
+# Handle import/pip name mismatches
+ensure_installed('PIL cv2', pip_names={'PIL': 'Pillow', 'cv2': 'opencv-python'})
+```
+
+**Behavior:**
+- **In Colab**: Auto-installs missing packages silently
+- **Locally**: Shows what will be installed and asks for confirmation (default: Yes)
+- **Smart**: Only installs if package is missing or version doesn't satisfy requirements
+
+### `acquire_data` - Unified Data Loading with Caching
+
+Load data from URLs or files with automatic caching. Works seamlessly in Colab (Google Drive) and locally.
+
+```python
+from cosmodata import acquire_data
+
+# Load CSV from URL (cached automatically)
+df = acquire_data('https://example.com/data.csv')
+
+# Custom getter for APIs
+data = acquire_data(
+    'https://api.example.com/endpoint',
+    getter=lambda url: requests.get(url).json(),
+    cache_key='api_data'
+)
+
+# Force refresh cached data
+df = acquire_data(url, refresh=True)
+
+# Custom cache location
+df = acquire_data(url, cache_dir='/path/to/cache')
+```
+
+**Features:**
+- **Auto-caching**: 
+  - Colab: Saves to Google Drive (`MyDrive/.colab_cache`) for persistence across sessions
+  - Local: Saves to `~/.local/share/cosmodata/datasets`
+- **Smart getters**: Auto-detects appropriate loader (graze → tabled → requests)
+- **Refresh support**: Bypass cache with `refresh=True`
+- **Format support**: Handles CSV, JSON, Excel, Parquet, etc. (via `tabled`)
+
+**Typical notebook workflow:**
+
+```python
+# Cell 1: Setup
+!pip install cosmodata
+from cosmodata import ensure_installed, acquire_data
+
+ensure_installed('graze tabled pandas')
+
+# Cell 2: Load data (fast on subsequent runs)
+df = acquire_data('https://example.com/large_dataset.csv', cache_key='my_dataset')
+
+# Cell 3: Your analysis
+df.head()
+```
+
+**Cache management:**
+
+```python
+# See where data is cached
+import os
+from pathlib import Path
+
+# In Colab
+cache_dir = Path('/content/drive/MyDrive/.colab_cache')
+
+# Locally
+cache_dir = Path('~/.local/share/cosmodata/datasets').expanduser()
+
+# List cached files
+list(cache_dir.glob('*.pkl'))
+
+# Clear specific cache
+os.remove(cache_dir / 'my_dataset.pkl')
+```
+
+---
+
+**Pro tip**: Combine both utilities for the smoothest notebook experience:
+
+```python
+from cosmodata import ensure_installed, acquire_data
+
+# One-time setup
+ensure_installed('graze tabled requests')
+
+# Now your data loading "just works" with caching
+df1 = acquire_data('https://example.com/data.csv')
+df2 = acquire_data('local_file.parquet')
+api_data = acquire_data(
+    'https://api.example.com/data',
+    getter=lambda u: requests.get(u).json()
+)
+```
