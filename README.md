@@ -21,7 +21,9 @@ This repository contains datasets for various projects, each prepared for visual
     - **Point Size:** `n_tokens` (number of tokens in the abstract)
     - **Color:** Cluster labels (`cluster_05`, `cluster_08`, etc.)
     - **Label:** `title`
-  - **Related code file:** [eurovis.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/eurovis.py)
+  - **More**:
+    - [visualization notebook](https://github.com/cosmograph-org/cosmo_notebooks/blob/main/notebooks/eurovis.ipynb)
+    - [data prep module eurovis.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/eurovis.py)
 
 ### Harris vs Trump Debate Dataset
 - **Raw Data:** Transcript of a political debate between Kamala Harris and Donald Trump.
@@ -31,7 +33,8 @@ This repository contains datasets for various projects, each prepared for visual
     - **Point Size:** `certainty`
     - **Color:** `speaker_color`
     - **Label:** `text`
-  - **Related code file:** No specific code file referenced.
+  - **More**:
+    - [visualization notebook](https://github.com/cosmograph-org/cosmo_notebooks/blob/main/notebooks/harris_trump_debate.ipynb)
 
 ### Spotify Playlists Dataset
 - **Raw Data:** Metadata on popular songs from various playlists, including holiday songs and the greatest 500 songs.
@@ -41,7 +44,8 @@ This repository contains datasets for various projects, each prepared for visual
     - **Point Size:** `popularity`
     - **Color:** `genre` (derived from playlist)
     - **Label:** `track_name`
-  - **Related code file:** Not specified.
+  - **More**:
+    - [visualization notebook](https://github.com/cosmograph-org/cosmo_notebooks/blob/main/notebooks/spotify_playlists.ipynb)
 
 
 ### Quotes Dataset
@@ -50,7 +54,20 @@ This repository contains datasets for various projects, each prepared for visual
   - **Potential columns for visualization:**
     - **X & Y Coordinates:** `x`, `y`
     - **Label:** `quote`
-  - **Related code file:** Not specified.
+  - **More**:
+    - [visualization notebook](https://github.com/cosmograph-org/cosmo_notebooks/blob/main/notebooks/quotes.ipynb)
+
+### Prompt Injections Dataset
+- **Raw Data:** Data related to prompt injection attacks and defenses.
+- **Prepared Data:** [prompt_injection_w_umap_embeddings.tsv](https://www.dropbox.com/scl/fi/88lky7ogiugfkngzo8blq/prompt_injection_w_umap_embeddings.tsv?rlkey=6f1tfws5oswvzska29l1l4l2i&dl=1) (662 rows, 6 columns)
+  - **Potential columns for visualization:**
+    - **X & Y Coordinates:** `x`, `y`
+    - **Point Size:** `size`
+    - **Color:** `label`
+    - **Label:** `text`
+  - **More**:
+    - [data prep module prompt_injections.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/prompt_injections.py)
+    - [visualization notebook](https://github.com/cosmograph-org/cosmo_notebooks/blob/main/notebooks/prompt_injections.ipynb)
 
 
 ### LMSys Chat Conversations Dataset
@@ -63,7 +80,6 @@ This repository contains datasets for various projects, each prepared for visual
     - **Label:** `content`
   - **Related code file:** [lmsys_ai_conversations.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/lmsys_ai_conversations.py)
 
-
 ### HCP Publications Dataset
 - **Raw Data:** Human Connectome Project (HCP) publications and citation networks.
 - **Prepared Data:** [aggregate_titles_embeddings_umap_2d_with_info.parquet](https://www.dropbox.com/scl/fi/uj14y2hre4he2iafpativ/aggregate_titles_embeddings_umap_2d_with_info.parquet?rlkey=tjey12v6cru3iq88xitytefsr&dl=1) (340,855 rows, 9 columns)
@@ -73,16 +89,6 @@ This repository contains datasets for various projects, each prepared for visual
     - **Color:** `main_field` (research domain)
     - **Label:** `title`
   - **Related code file:** [hcp.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/hcp.py)
-
-### Prompt Injections Dataset
-- **Raw Data:** Data related to prompt injection attacks and defenses.
-- **Prepared Data:** [prompt_injection_w_umap_embeddings.tsv](https://www.dropbox.com/scl/fi/88lky7ogiugfkngzo8blq/prompt_injection_w_umap_embeddings.tsv?rlkey=6f1tfws5oswvzska29l1l4l2i&dl=1) (662 rows, 6 columns)
-  - **Potential columns for visualization:**
-    - **X & Y Coordinates:** `x`, `y`
-    - **Point Size:** `size`
-    - **Color:** `label`
-    - **Label:** `text`
-  - **Related code file:** [prompt_injections.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/prompt_injections.py)
 
 ### GitHub Repositories Dataset
 - **Raw Data:** GitHub repository metadata including stars, forks, programming languages, and repository descriptions.
