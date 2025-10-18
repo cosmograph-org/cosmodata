@@ -1,0 +1,11 @@
+{
+    "src": "https://www.dropbox.com/scl/fi/uj14y2hre4he2iafpativ/aggregate_titles_embeddings_umap_2d_with_info.parquet?rlkey=tjey12v6cru3iq88xitytefsr&dl=1",
+    "target_filename": "aggregate_titles_embeddings_umap_2d_with_info.parquet",
+    "dataset_name": "HCP Publications Dataset",
+    "dataset_description": "Human Connectome Project (HCP) publications and citation networks.",
+    "ext": ".parquet",
+    "viz_columns_info": "**Potential columns for visualization:**\n    - **X & Y Coordinates:** `x`, `y`\n    - **Point Size:** `n_cits` (citation count)\n    - **Color:** `main_field` (research domain)\n    - **Label:** `title`",
+    "related_code": "[hcp.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/hcp.py)",
+    "output_filename": "hcp_publications.ipynb",
+    "slug": "hcp_publications"
+}

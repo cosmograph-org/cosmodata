@@ -1,0 +1,11 @@
+{
+    "src": "https://www.dropbox.com/scl/fi/tp551hfzo5xp20urs7b8x/harris_vs_trump_debate_with_extras.parquet?rlkey=4gep2vn60vv3wx5q11iq6hc3j&dl=1",
+    "target_filename": "harris_vs_trump_debate_with_extras.parquet",
+    "dataset_name": "Harris vs Trump Debate Dataset",
+    "dataset_description": "Transcript of a political debate between Kamala Harris and Donald Trump.",
+    "ext": ".parquet",
+    "viz_columns_info": "**Potential columns for visualization:**\n    - **X & Y Coordinates:** `tsne__x`, `tsne__y`, `pca__x`, `pca__y`\n    - **Point Size:** `certainty`\n    - **Color:** `speaker_color`\n    - **Label:** `text`",
+    "related_code": null,
+    "output_filename": "harris_trump_debate.ipynb",
+    "slug": "harris_trump_debate"
+}

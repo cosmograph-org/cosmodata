@@ -1,0 +1,11 @@
+{
+    "src": "https://www.dropbox.com/scl/fi/88lky7ogiugfkngzo8blq/prompt_injection_w_umap_embeddings.tsv?rlkey=6f1tfws5oswvzska29l1l4l2i&dl=1",
+    "target_filename": "prompt_injection_w_umap_embeddings.tsv",
+    "dataset_name": "Prompt Injections Dataset",
+    "dataset_description": "Data related to prompt injection attacks and defenses.",
+    "ext": ".tsv",
+    "viz_columns_info": "**Potential columns for visualization:**\n    - **X & Y Coordinates:** `x`, `y`\n    - **Point Size:** `size`\n    - **Color:** `label`\n    - **Label:** `text`",
+    "related_code": "[prompt_injections.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/prompt_injections.py)",
+    "output_filename": "prompt_injections.ipynb",
+    "slug": "prompt_injections"
+}

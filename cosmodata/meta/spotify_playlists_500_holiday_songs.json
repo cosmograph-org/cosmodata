@@ -1,0 +1,11 @@
+{
+    "src": "https://www.dropbox.com/scl/fi/blchigtklrn49cp9v7aga/holiday_songs_spotify_with_embeddings.parquet?rlkey=wvr58wnj1rrx2zblsp73ufpdy&dl=1",
+    "target_filename": "holiday_songs_spotify_with_embeddings.parquet",
+    "dataset_name": "Spotify Playlists Dataset",
+    "dataset_description": "Metadata on popular songs from various playlists, including holiday songs and the greatest 500 songs.",
+    "ext": ".parquet",
+    "viz_columns_info": "**Potential columns for visualization:**\n    - **X & Y Coordinates:** `umap_x`, `umap_y`, `tsne_x`, `tsne_y`\n    - **Point Size:** `popularity`\n    - **Color:** `genre` (derived from playlist)\n    - **Label:** `track_name`",
+    "related_code": null,
+    "output_filename": "spotify_playlists.ipynb",
+    "slug": "spotify_playlists_500_holiday_songs"
+}

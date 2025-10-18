@@ -1,0 +1,11 @@
+{
+    "src": "https://www.dropbox.com/scl/fi/hgqxoi9edehwq4d17k3q7/micheleriva_1638_quotes_planar_embeddings.parquet?rlkey=wey433rcicsxkhghhlpwbskwu&dl=1",
+    "target_filename": "micheleriva_1638_quotes_planar_embeddings.parquet",
+    "dataset_name": "Quotes Dataset",
+    "dataset_description": "Collection of 1,638 famous quotes.",
+    "ext": ".parquet",
+    "viz_columns_info": "**Potential columns for visualization:**\n    - **X & Y Coordinates:** `x`, `y`\n    - **Label:** `quote`",
+    "related_code": null,
+    "output_filename": "quotes.ipynb",
+    "slug": "quotes"
+}

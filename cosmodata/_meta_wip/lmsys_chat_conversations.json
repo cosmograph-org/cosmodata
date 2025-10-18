@@ -1,0 +1,11 @@
+{
+    "src": "https://www.dropbox.com/scl/fi/nqjg3dtaapjhjg0bloxj5/lmsys_with_planar_embeddings_pca500.parquet?rlkey=igepv3cfq9gaczztdc7bp1mb7&dl=1",
+    "target_filename": "lmsys_with_planar_embeddings_pca500.parquet",
+    "dataset_name": "LMSys Chat Conversations Dataset",
+    "dataset_description": "Conversations from AI chat systems.",
+    "ext": ".parquet",
+    "viz_columns_info": "**Potential columns for visualization:**\n    - **X & Y Coordinates:** `x_umap`, `y_umap`\n    - **Point Size:** `num_of_tokens`\n    - **Color:** `model`\n    - **Label:** `content`",
+    "related_code": "[lmsys_ai_conversations.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/lmsys_ai_conversations.py)",
+    "output_filename": "lmsys_chat_conversations.ipynb",
+    "slug": "lmsys_chat_conversations"
+}

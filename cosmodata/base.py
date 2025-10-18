@@ -120,6 +120,23 @@ def _check_version(current, op, required):
     return True  # No op means any version OK
 
 
+import os
+from collections.abc import Mapping
+
+if os.name == 'nt':
+    win_base = os.environ.get('APPDATA')
+    if not win_base:
+        win_base = os.path.join(os.path.expanduser('~'), 'AppData', 'Local')
+    DFLT_CACHE_DIR = os.path.join(win_base, 'cosmodata', 'datasets')
+else:
+    DFLT_CACHE_DIR = os.path.expanduser('~/.local/share/cosmodata/datasets')
+
+
+from cosmodata.util import graze
+from functools import partial
+import tabled
+
+
 def acquire_data(
     src,
     cache_key=None,
@@ -192,6 +209,7 @@ def acquire_data(
         cache_key = md5(str(src).encode()).hexdigest()[:16]
 
     cache_file = cache_dir / f'{cache_key}.pkl'
+    # cache_file = cache_dir / f'{cache_key}'
 
     # Try cache first (unless refresh requested)
     if not refresh and cache_file.exists():
@@ -208,10 +226,8 @@ def acquire_data(
         # For URLs: try graze > get_table > requests
         if is_url:
             try:
-                from graze import graze as _graze
-
                 # Graze already caches, but we cache its output for Colab persistence
-                getter = _graze
+                getter = graze
             except ImportError:
                 try:
                     from tabled import get_table
@@ -243,3 +259,107 @@ def acquire_data(
         print(f"Warning: Could not cache data: {e}")
 
     return data
+
+
+acquire_data.DFLT_CACHE_DIR = DFLT_CACHE_DIR
+
+
+# --------------------------------------------------------------------------------------
+# Stores
+import dol
+from cosmodata.util import meta_files_rootdir
+
+# Store of metadata files
+metas = dol.wrap_kvs(
+    dol.JsonFiles(meta_files_rootdir), key_codec=dol.KeyCodecs.suffixed(".json")
+)
+
+
+def _try_various_fields_until_found(meta, fields):
+    for field in fields:
+        if field in meta:
+            return meta[field]
+    return None
+
+
+def _data_src_from_meta(meta, fields=('url',)):
+    return _try_various_fields_until_found(meta, fields)
+
+
+def _assign_if_not_none(target, target_key, src, src_keys):
+    if isinstance(src_keys, str):
+        src_keys = (src_keys,)
+    for key in src_keys:
+        if key in src:
+            target[target_key] = src[key]
+            return
+
+
+def _normalize_ext(ext):
+    if not ext:
+        return None
+    return ext.lstrip('.')
+
+
+def _cache_key_from_meta(meta):
+    for field in ('cache_key', 'target_filename', 'output_filename', 'slug'):
+        value = meta.get(field)
+        if value:
+            return value
+    return None
+
+
+def _infer_ext(meta, current_ext=None):
+    ext = current_ext or meta.get('ext') or meta.get('extension')
+    if not ext and meta.get('target_filename'):
+        ext = os.path.splitext(meta['target_filename'])[1]
+    return ext
+
+
+def _get_acquire_data_kwargs(meta):
+    if not isinstance(meta, Mapping):
+        raise TypeError(f"Expected metadata mapping, got {type(meta)!r}")
+    kws = {}
+    _assign_if_not_none(kws, 'src', meta, 'src')
+    if 'src' not in kws:
+        raise KeyError("Metadata entry is missing mandatory 'src'")
+    cache_key = _cache_key_from_meta(meta)
+    if cache_key:
+        kws['cache_key'] = cache_key
+    ext = _infer_ext(meta)
+    if ext:
+        kws['ext'] = ext
+    if meta.get('cache_dir'):
+        kws['cache_dir'] = meta['cache_dir']
+    if meta.get('refresh') is not None:
+        kws['refresh'] = meta['refresh']
+    return kws
+
+
+def _meta_to_data(meta, getter=_get_acquire_data_kwargs):
+    kws = getter(meta)
+    ext = _normalize_ext(kws.pop('ext', None))
+    if ext:
+        getter = partial(tabled.get_table, ext=ext)
+    else:
+        getter = tabled.get_table
+    return acquire_data(**kws, getter=getter)
+
+
+def _datas_value_encoder(meta):
+    if not isinstance(meta, Mapping):
+        return meta
+    meta = dict(meta)
+    cache_key = meta.get('cache_key')
+    target_filename = meta.get('target_filename')
+    if target_filename:
+        meta.setdefault('cache_key', target_filename)
+        inferred_ext = _infer_ext(meta)
+        if inferred_ext and not meta.get('ext'):
+            meta['ext'] = inferred_ext
+    return meta
+
+
+# Store of tables (acquired and cached)
+datas = dol.wrap_kvs(metas, value_decoder=_meta_to_data, value_encoder=_datas_value_encoder)
+datas.graze_root = graze.rootdir

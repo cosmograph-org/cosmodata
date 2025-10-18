@@ -1,0 +1,11 @@
+{
+    "src": "https://www.dropbox.com/scl/fi/kgdvp6dmp8ppnnmjabjzl/github_repo_for_cosmos.parquet?rlkey=dma2zk9uuzsctsjfevjumbrdg&dl=1",
+    "target_filename": "github_repo_for_cosmos.parquet",
+    "dataset_name": "GitHub Repositories Dataset",
+    "dataset_description": "GitHub repository metadata including stars, forks, programming languages, and repository descriptions.",
+    "ext": ".parquet",
+    "viz_columns_info": "**Potential columns for visualization:**\n    - **X & Y Coordinates:** `x`, `y`\n    - **Point Size:** `stars` (star count), `forks`\n    - **Color:** `primaryLanguage`\n    - **Label:** `nameWithOwner`",
+    "related_code": "[github_repos.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/github_repos.py)",
+    "output_filename": "github_repositories.ipynb",
+    "slug": "github_repositories"
+}
