@@ -489,8 +489,12 @@ You can see the list of parameters here:
 Note, again, that all parameters that end with `_by` accept either a column name (str) 
 referring to a column in the respective DataFrame.
 The main ones are:
-point_x_by and point_y_by to specify what (numerical) columns (names) to take for the coordinates of the point (not necessary in linked data)
-point_size_by to determine the size, point_color_by to determine the color
+point_x_by and point_y_by to specify what (numerical) columns (names) to take for the 
+coordinates of the point (not necessary in linked data) point_size_by to determine 
+the size, point_color_by to determine the color. 
+You should favor columns named `x` and `y`, or ending with `_x` and `_y` for the coordinates
+(the point_x_by and point_y_by parameters). 
+You should favor categorical columns for point_color_by and numerical columns for point_size_by.
 
 There are essentially two types of graphs:
 * points: You necessarily need to specify a point_x_by and point_y_by here. This could 

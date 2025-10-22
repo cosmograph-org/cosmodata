@@ -121,6 +121,7 @@ def _check_version(current, op, required):
 
 
 import os
+import shutil
 from collections.abc import Mapping
 
 if os.name == 'nt':
@@ -132,7 +133,7 @@ else:
     DFLT_CACHE_DIR = os.path.expanduser('~/.local/share/cosmodata/datasets')
 
 
-from cosmodata.util import graze
+from cosmodata.util import graze, url_to_file_download
 from functools import partial
 import tabled
 
@@ -144,6 +145,7 @@ def acquire_data(
     getter=None,
     refresh=False,
     cache_dir=None,
+    ext=None,
 ):
     """
     Acquire data from source with automatic caching (Colab-aware).
@@ -178,6 +180,7 @@ def acquire_data(
     """
     import os
     import pickle
+    from urllib.parse import urlparse
     from pathlib import Path
     from hashlib import md5
 
@@ -198,67 +201,156 @@ def acquire_data(
         if cache_dir is None:
             cache_dir = os.path.expanduser('~/.local/share/cosmodata/datasets')
 
-    # Ensure directory exists (needed for both Colab and local)
-    os.makedirs(cache_dir, exist_ok=True)
-    # Setup cache
     cache_dir = Path(cache_dir)
     cache_dir.mkdir(parents=True, exist_ok=True)
 
-    # Generate cache key
     if cache_key is None:
         cache_key = md5(str(src).encode()).hexdigest()[:16]
 
-    cache_file = cache_dir / f'{cache_key}.pkl'
-    # cache_file = cache_dir / f'{cache_key}'
+    ext = _normalize_ext(ext)
 
-    # Try cache first (unless refresh requested)
-    if not refresh and cache_file.exists():
+    cache_path = cache_dir / cache_key
+    if ext:
+        cache_file = cache_path.with_suffix(f'.{ext}')
+    elif cache_path.suffix:
+        cache_file = cache_path
+        ext = _normalize_ext(cache_file.suffix)
+    else:
+        cache_file = cache_path.with_suffix('.pkl')
+
+    file_cache = cache_file.suffix != '.pkl'
+    pickle_cache_file = (
+        cache_file if cache_file.suffix == '.pkl' else cache_path.with_suffix('.pkl')
+    )
+
+    def default_loader(target):
+        target = str(target)
+        if ext:
+            return tabled.get_table(target, ext=ext)
+        return tabled.get_table(target)
+
+    def call_loader(target):
+        if getter is not None:
+            try:
+                return getter(str(target))
+            except TypeError:
+                return default_loader(target)
+        return default_loader(target)
+
+    def load_cached_file():
+        return call_loader(cache_file)
+
+    def is_url(value):
+        if not isinstance(value, str):
+            return False
+        parsed = urlparse(value)
+        return parsed.scheme in ('http', 'https')
+
+    def download_or_copy_source():
+        if not isinstance(src, str):
+            return False
+        if is_url(src):
+            overwrite = True if refresh else False
+            try:
+                url_to_file_download(src, filepath=str(cache_file), overwrite=overwrite)
+                return True
+            except Exception as e:
+                print(f"Warning: Could not download {src}: {e}")
+                return False
+        src_path = Path(src)
+        if src_path.exists():
+            try:
+                if src_path.resolve() != cache_file.resolve():
+                    cache_file.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(src_path, cache_file)
+                else:
+                    cache_file.parent.mkdir(parents=True, exist_ok=True)
+                return True
+            except Exception as e:
+                print(f"Warning: Could not copy {src_path} to cache: {e}")
+        return False
+
+    def store_data_to_file(data):
+        cache_file.parent.mkdir(parents=True, exist_ok=True)
+        suffix = cache_file.suffix.lower()
         try:
-            with open(cache_file, 'rb') as f:
-                return pickle.load(f)
+            if isinstance(data, (bytes, bytearray)):
+                cache_file.write_bytes(data)
+                return True
+            if isinstance(data, str):
+                cache_file.write_text(data)
+                return True
+            if suffix in ('.parquet', '.feather') and hasattr(data, 'to_parquet'):
+                data.to_parquet(cache_file)
+                return True
+            if suffix in ('.csv', '.tsv', '.txt') and hasattr(data, 'to_csv'):
+                sep = '\t' if suffix == '.tsv' else ','
+                data.to_csv(cache_file, index=False, sep=sep)
+                return True
+            if suffix == '.json' and hasattr(data, 'to_json'):
+                data.to_json(cache_file, orient='records')
+                return True
+            if suffix in ('.pkl', '.pickle'):
+                with open(cache_file, 'wb') as f:
+                    pickle.dump(data, f)
+                return True
         except Exception as e:
-            print(f"Cache read failed: {e}, fetching fresh data...")
+            print(f"Warning: Could not serialize data to {cache_file}: {e}")
+        return False
 
-    # Auto-detect getter if not provided
-    if getter is None:
-        is_url = isinstance(src, str) and src.startswith(('http://', 'https://'))
+    def try_file_cache():
+        cache_file.parent.mkdir(parents=True, exist_ok=True)
 
-        # For URLs: try graze > get_table > requests
-        if is_url:
+        if refresh and cache_file.exists():
+            cache_file.unlink(missing_ok=True)
+
+        if not refresh and cache_file.exists():
             try:
-                # Graze already caches, but we cache its output for Colab persistence
-                getter = graze
-            except ImportError:
-                try:
-                    from tabled import get_table
+                return True, load_cached_file()
+            except Exception as e:
+                print(f"Cache read failed: {e}, refreshing cache...")
+                cache_file.unlink(missing_ok=True)
 
-                    getter = get_table
-                except ImportError:
-                    import requests
-
-                    getter = lambda u: requests.get(u).content
-        else:
-            # For files/other: try get_table
+        fetched = download_or_copy_source()
+        if fetched and cache_file.exists():
             try:
-                from tabled import get_table
+                return True, load_cached_file()
+            except Exception as e:
+                print(f"Warning: Failed to load cached file {cache_file}: {e}")
 
-                getter = get_table
-            except ImportError:
-                raise ValueError("Install tabled or provide a getter function")
+        data = call_loader(src)
+        if store_data_to_file(data):
+            return True, data
+        return False, data
 
-    # Fetch data
-    print(f"Fetching data from {src}...")
-    data = getter(src)
+    def cache_with_pickle(prefetched=None):
+        pickle_cache_file.parent.mkdir(parents=True, exist_ok=True)
+        if refresh and pickle_cache_file.exists():
+            pickle_cache_file.unlink(missing_ok=True)
 
-    # Cache the result
-    try:
-        with open(cache_file, 'wb') as f:
-            pickle.dump(data, f)
-        print(f"Data cached at: {cache_file}")
-    except Exception as e:
-        print(f"Warning: Could not cache data: {e}")
+        if not refresh and pickle_cache_file.exists():
+            try:
+                with open(pickle_cache_file, 'rb') as f:
+                    return pickle.load(f)
+            except Exception as e:
+                print(f"Cache read failed: {e}, fetching fresh data...")
+                pickle_cache_file.unlink(missing_ok=True)
 
-    return data
+        data = prefetched if prefetched is not None else call_loader(src)
+        try:
+            with open(pickle_cache_file, 'wb') as f:
+                pickle.dump(data, f)
+        except Exception as e:
+            print(f"Warning: Could not cache data at {pickle_cache_file}: {e}")
+        return data
+
+    prefetched = None
+    if file_cache:
+        success, prefetched = try_file_cache()
+        if success:
+            return prefetched
+
+    return cache_with_pickle(prefetched=prefetched)
 
 
 acquire_data.DFLT_CACHE_DIR = DFLT_CACHE_DIR
@@ -338,7 +430,10 @@ def _get_acquire_data_kwargs(meta):
 
 def _meta_to_data(meta, getter=_get_acquire_data_kwargs):
     kws = getter(meta)
-    ext = _normalize_ext(kws.pop('ext', None))
+    ext = kws.get('ext')
+    if ext is not None:
+        ext = _normalize_ext(ext)
+        kws['ext'] = ext
     if ext:
         getter = partial(tabled.get_table, ext=ext)
     else:
