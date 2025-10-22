@@ -91,8 +91,8 @@ This repository contains datasets for various projects, each prepared for visual
   - **Related code file:** [hcp.py](https://github.com/thorwhalen/imbed_data_prep/blob/main/imbed_data_prep/hcp.py)
 
 ### GitHub Repositories Dataset
-- **Raw Data:** GitHub repository metadata including stars, forks, programming languages, and repository descriptions.
-- **Prepared Data:** [github_repo_for_cosmos.parquet]([https://www.dropbox.com/scl/fi/kgdvp6dmp8ppnnmjabjzl/github_repo_for_cosmos.parquet?rlkey=dma2zk9uuzsctsjfevjumbrdg&dl=1](https://www.dropbox.com/scl/fi/kgdvp6dmp8ppnnmjabjzl/github_repo_for_cosmos.parquet?rlkey=dma2zk9uuzsctsjfevjumbrdg&dl=0)) (3,065,063 rows, 28 columns)
+- **Raw Data:** GitHub repository metadata including stars, forks, programming languages, and repository descriptions, from [kaggle dataset](https://www.kaggle.com/datasets/github/github-repos)
+- **Prepared Data:** [github_repositories.parquet](https://www.dropbox.com/scl/fi/4oidj0wigc1ukjamk34tm/github_repositories.parquet?rlkey=z1zqgef8o1pf2bcxwsryxwnkg&dl=0) (3,065,063 rows, 28 columns)
   - **Potential columns for visualization:**
     - **X & Y Coordinates:** `x`, `y`
     - **Point Size:** `stars` (star count), `forks`
