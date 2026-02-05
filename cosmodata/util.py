@@ -8,6 +8,7 @@ from importlib.resources import files
 from functools import partial
 import graze as _graze
 import pandas as pd
+from tabled import print_dataframe_info  # keep import for backcompatibility
 
 
 def get_package_name():
@@ -212,87 +213,6 @@ to_name_and_url_dict = partial(df_to_simple_dict, "name", "url")
 @wrap_kvs(obj_of_data=to_name_and_url_dict)
 class LinkFileMapping(LinkFileTables):
     """"""
-
-
-# --------------------------------------------------------------------------------------
-
-from typing import Literal, Callable, Optional, Union
-import pandas as pd
-
-
-def print_dataframe_info(
-    df: pd.DataFrame,
-    exclude_columns: Union[str, list[str]] = (),
-    *,
-    mode: Literal['short', 'sample', 'stats'] = 'short',
-    egress: Optional[Callable[[str], None]] = print,
-):
-    """Print information about a DataFrame.
-
-    Args:
-        df: The DataFrame to analyze
-        mode: Type of information to display
-            - 'short': shape and first row
-            - 'sample': shape, columns, and random rows
-            - 'stats': descriptive statistics
-        egress: Callback function for output (None returns string instead of printing)
-
-    >>> import pandas as pd
-    >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
-    >>> info = print_dataframe_info(df, egress=None)
-    >>> 'shape: (3, 2)' in info
-    True
-    """
-    if isinstance(exclude_columns, str):
-        exclude_columns = [exclude_columns]
-    if egress == 'copy':
-        import pyperclip  # pip install pyperclip
-
-        egress = pyperclip.copy
-
-    if exclude_columns:
-        df = df.drop(columns=exclude_columns, errors='ignore')
-
-    s = ''
-
-    if mode == 'short':
-        s += f"DataFrame shape: {df.shape}\n"
-        s += "First row\n" + "-" * 60 + "\n"
-        s += df.iloc[0].to_string()
-
-    elif mode == 'sample':
-        n_samples = min(3, len(df))
-        s += f"DataFrame shape: {df.shape}\n"
-        s += f"Columns: {', '.join(df.columns)}\n"
-        s += f"\nRandom sample ({n_samples} rows)\n" + "-" * 60 + "\n"
-        s += df.sample(n=n_samples).to_string()
-
-    elif mode == 'stats':
-        s += f"DataFrame shape: {df.shape}\n"
-        s += "\nStatistics\n" + "-" * 60 + "\n"
-
-        numeric_cols = df.select_dtypes(include='number').columns
-        categorical_cols = df.select_dtypes(exclude='number').columns
-
-        if len(numeric_cols) > 0:
-            s += "Numeric columns:\n"
-            s += df[numeric_cols].describe().to_string() + "\n"
-
-        if len(categorical_cols) > 0:
-            s += "\nCategorical columns:\n"
-            for col in categorical_cols:
-                s += f"\n{col}:\n"
-                s += df[col].value_counts().head(5).to_string()
-                if df[col].nunique() > 5:
-                    s += f"\n  ... ({df[col].nunique() - 5} more unique values)"
-                s += "\n"
-
-    else:
-        raise ValueError(f"Unknown mode: {mode}. Use 'short', 'sample', or 'stats'.")
-
-    if not egress:
-        return s
-    return egress(s)
 
 
 # --------------------------------------------------------------------------------------
